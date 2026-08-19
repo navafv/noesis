@@ -27,11 +27,10 @@ const initialForm = { email: "", password: "" };
  * Spider-Verse themed auth portal for "/login". Two tabs — Student and
  * Coordinator/Admin — share one email/password form but validate and
  * redirect differently, since there's no real backend yet:
- *  - Student tab  -> mock-authenticates, then redirects to "/" with a
- *    success flash (stand-in for a future participant dashboard).
- *  - Coordinator tab -> mock-authenticates, then redirects to "/" as
- *    well, but is styled/labelled as an admin sign-in so it's easy to
- *    swap for a real "/admin" route later.
+ *  - Student tab      -> mock-authenticates, then redirects to "/student".
+ *  - Coordinator tab  -> mock-authenticates, then redirects to "/admin".
+ * Both dashboards already exist under StudentLayout / AdminLayout — swap
+ * the mock timeout for a real auth call when a backend is wired up.
  */
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -74,7 +73,8 @@ export default function LoginPage() {
 
     setStatus("success");
     setTimeout(() => {
-      navigate("/", {
+      const destination = activeTab === "coordinator" ? "/admin" : "/student";
+      navigate(destination, {
         state: {
           loginSuccess: true,
           role: activeTab,

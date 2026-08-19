@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
@@ -61,50 +61,53 @@ const initialForm = {
  * event's rules, shows a Spider-themed UPI QR block for payment, and —
  * on submit — renders a downloadable digital pass preview.
  */
+function teamSizeFor(eventId) {
+  if (!eventId) return 1;
+  return TEAM_SIZES[eventId] ?? 1;
+}
+
 export default function RegisterPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState(initialForm);
+  // Pre-select the event from ?event=<id> (validated against known events)
+  // and size the teamMembers array to match it — computed once, lazily,
+  // as the initial state rather than synced in afterward via an effect.
+  const [form, setForm] = useState(() => {
+    const requested = searchParams.get("event");
+    const eventId =
+      requested && EVENTS.some((e) => e.id === requested) ? requested : "";
+    const needed = Math.max(teamSizeFor(eventId) - 1, 0);
+    return {
+      ...initialForm,
+      eventId,
+      teamMembers: Array.from({ length: needed }, () => ""),
+    };
+  });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success
   const badgeRef = useRef(null);
 
-  // Pre-select the event from ?event=<id>, validating against known events.
-  useEffect(() => {
-    const requested = searchParams.get("event");
-    if (requested && EVENTS.some((e) => e.id === requested)) {
-      setForm((prev) =>
-        prev.eventId === requested ? prev : { ...prev, eventId: requested },
-      );
-    }
-  }, [searchParams]);
-
-  const teamSize = useMemo(() => {
-    if (!form.eventId) return 1;
-    return TEAM_SIZES[form.eventId] ?? 1;
-  }, [form.eventId]);
-
-  // Keep the teamMembers array in sync with the selected event's team size.
-  useEffect(() => {
-    setForm((prev) => {
-      const needed = Math.max(teamSize - 1, 0);
-      const current = prev.teamMembers;
-      if (current.length === needed) return prev;
-      const next = Array.from({ length: needed }, (_, i) => current[i] || "");
-      return { ...prev, teamMembers: next };
-    });
-  }, [teamSize]);
+  const teamSize = useMemo(() => teamSizeFor(form.eventId), [form.eventId]);
 
   const update = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
-  // Selecting an event card also syncs the URL so the choice stays
+  // Selecting an event card resizes teamMembers to match the new event's
+  // team size right away, and syncs the URL so the choice stays
   // shareable/bookmarkable and survives a refresh.
   const selectEvent = (eventId) => {
-    update("eventId", eventId);
+    setForm((prev) => {
+      const needed = Math.max(teamSizeFor(eventId) - 1, 0);
+      const next = Array.from(
+        { length: needed },
+        (_, i) => prev.teamMembers[i] || "",
+      );
+      return { ...prev, eventId, teamMembers: next };
+    });
+    setErrors((prev) => ({ ...prev, eventId: undefined }));
     setSearchParams({ event: eventId }, { replace: true });
   };
 

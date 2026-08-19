@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, MapPin, Sparkle, Eye } from "lucide-react";
 
@@ -40,6 +41,7 @@ function venueColor(venue) {
  * full details.
  */
 export default function SchedulePage() {
+  const navigate = useNavigate();
   const [activeDay, setActiveDay] = useState("day1");
   const [activeTrack, setActiveTrack] = useState("All");
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -203,6 +205,10 @@ export default function SchedulePage() {
         <EventModal
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
+          onRegister={(eventId) => {
+            setSelectedEvent(null);
+            navigate(`/register?event=${eventId}`);
+          }}
         />
       </section>
     </>

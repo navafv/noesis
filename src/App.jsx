@@ -1,6 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import RootLayout from "./layouts/RootLayout";
+import StudentLayout from "./layouts/StudentLayout";
+import StudentDashboard from "./pages/student/StudentDashboard";
+import StudentEventsPage from "./pages/student/StudentEventsPage";
+import StudentTeamPage from "./pages/student/StudentTeamPage";
+import StudentSubmissionsPage from "./pages/student/StudentSubmissionsPage";
+import AdminLayout from "./layouts/AdminLayout";
+import PaymentVerificationPage from "./pages/admin/PaymentVerificationPage";
 import "./App.css";
 
 /* ------------------------------------------------------------------ */
@@ -83,6 +90,66 @@ function NotFoundPage() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Student Portal — lightweight placeholders for sub-pages not yet   */
+/*  built out. Swap each for its real component under                 */
+/*  src/pages/student/ as it's implemented.                           */
+/* ------------------------------------------------------------------ */
+
+function StudentPagePlaceholder({ title }) {
+  return (
+    <div className="max-w-3xl mx-auto flex flex-col items-center justify-center gap-3 py-24 text-center">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-spidey-cyan font-mono">
+        Student Portal
+      </p>
+      <h1 className="text-3xl font-bold text-spidey-white">{title}</h1>
+      <p className="text-spidey-white/50 font-mono text-sm">
+        // page under construction — coming soon
+      </p>
+    </div>
+  );
+}
+
+function StudentCertificatesPage() {
+  return <StudentPagePlaceholder title="Certificates" />;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Admin / Coordinator Command Center — lightweight placeholders for  */
+/*  sub-pages not yet built out. Swap each for its real component      */
+/*  under src/pages/admin/ as it's implemented.                        */
+/* ------------------------------------------------------------------ */
+
+function AdminPagePlaceholder({ title }) {
+  return (
+    <div className="max-w-3xl mx-auto flex flex-col items-center justify-center gap-3 py-24 text-center">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-spidey-cyan font-mono">
+        Command Center
+      </p>
+      <h1 className="text-3xl font-bold text-spidey-white">{title}</h1>
+      <p className="text-spidey-white/50 font-mono text-sm">
+        // page under construction — coming soon
+      </p>
+    </div>
+  );
+}
+
+function AdminOverviewPage() {
+  return <AdminPagePlaceholder title="Overview" />;
+}
+
+function AdminScoringPage() {
+  return <AdminPagePlaceholder title="Scoring" />;
+}
+
+function AdminScannerPage() {
+  return <AdminPagePlaceholder title="QR Scanner" />;
+}
+
+function AdminSpotEntryPage() {
+  return <AdminPagePlaceholder title="Spot Entry" />;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Router                                                             */
 /* ------------------------------------------------------------------ */
 
@@ -97,6 +164,22 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
+        </Route>
+
+        <Route path="/student" element={<StudentLayout />}>
+          <Route index element={<StudentDashboard />} />
+          <Route path="events" element={<StudentEventsPage />} />
+          <Route path="team" element={<StudentTeamPage />} />
+          <Route path="submissions" element={<StudentSubmissionsPage />} />
+          <Route path="certificates" element={<StudentCertificatesPage />} />
+        </Route>
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminOverviewPage />} />
+          <Route path="payments" element={<PaymentVerificationPage />} />
+          <Route path="scoring" element={<AdminScoringPage />} />
+          <Route path="scanner" element={<AdminScannerPage />} />
+          <Route path="spot-entry" element={<AdminSpotEntryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

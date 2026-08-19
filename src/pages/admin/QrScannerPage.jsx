@@ -11,6 +11,8 @@ import {
   DoorOpen,
   History,
   Zap,
+  KeyRound,
+  ArrowRight,
 } from "lucide-react";
 import { formatShortTime } from "../../lib/utils";
 import { MOCK_PASS_REGISTRY } from "../../data/mock/passRegistry";
@@ -41,6 +43,8 @@ export default function QrScannerPage() {
   const [result, setResult] = useState(null); // { status, code, entry }
   const [checkedIn, setCheckedIn] = useState(new Set());
   const [log, setLog] = useState([]);
+  const [manualCode, setManualCode] = useState("");
+  const [manualError, setManualError] = useState("");
 
   const videoRef = useRef(null);
   const streamRef = useRef(null);
@@ -111,6 +115,18 @@ export default function QrScannerPage() {
   function handleSimulateScan(code) {
     setScanning(true);
     setTimeout(() => processCode(code), 700);
+  }
+
+  function handleManualSubmit(e) {
+    e.preventDefault();
+    const code = manualCode.trim().toUpperCase();
+    if (!code) {
+      setManualError("Enter a pass code to check in.");
+      return;
+    }
+    setManualError("");
+    processCode(code);
+    setManualCode("");
   }
 
   return (
@@ -249,6 +265,43 @@ export default function QrScannerPage() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Manual code fallback — for damaged QR codes, camera-less
+                devices, or a camera permission failure. */}
+            <div className="pt-4 border-t border-spidey-white/10">
+              <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.12em] text-spidey-white/40 font-mono mb-2">
+                <KeyRound size={11} />
+                Manual code entry
+              </p>
+              <form onSubmit={handleManualSubmit} className="flex gap-2">
+                <input
+                  value={manualCode}
+                  onChange={(e) => {
+                    setManualCode(e.target.value);
+                    setManualError("");
+                  }}
+                  placeholder="e.g. N26-PASS-10231"
+                  autoComplete="off"
+                  className={`flex-1 rounded-lg bg-spidey-blue/60 border ${
+                    manualError ? "border-red-400/60" : "border-spidey-white/15"
+                  } text-spidey-white text-sm font-mono px-4 py-2.5 outline-none focus:border-spidey-cyan/50 transition-colors placeholder:text-spidey-white/30`}
+                />
+                <button
+                  type="submit"
+                  data-cursor="interactive"
+                  aria-label="Check in with manual code"
+                  className="flex items-center justify-center gap-1.5 rounded-lg bg-spidey-cyan text-spidey-canvas font-bold text-sm px-4 py-2.5 hover:scale-[1.02] active:scale-95 transition-transform shrink-0"
+                >
+                  <ArrowRight size={16} />
+                </button>
+              </form>
+              {manualError && (
+                <p className="flex items-center gap-1.5 text-xs text-red-400 mt-1.5">
+                  <AlertTriangle size={12} />
+                  {manualError}
+                </p>
+              )}
             </div>
           </div>
         </div>

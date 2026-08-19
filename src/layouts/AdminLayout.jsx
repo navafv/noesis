@@ -116,30 +116,30 @@ export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [admin, setAdmin] = useState(() => getAdminSession());
+  const [admin] = useState(() => {
+    // Dev convenience: seed a mock session so /admin is explorable
+    // without a login backend yet. Remove once real auth lands.
+    seedMockSessionIfMissing();
+    return getAdminSession();
+  });
   const [rolePreview, setRolePreview] = useState(() =>
-    getRolePreview(getAdminSession()?.baseRole),
+    getRolePreview(admin?.baseRole),
   );
   const [collapsed, setCollapsed] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef(null);
 
-  // Dev-only seed — see seedMockSessionIfMissing() docblock.
-  useEffect(() => {
-    if (!admin) {
-      seedMockSessionIfMissing();
-      const seeded = getAdminSession();
-      setAdmin(seeded);
-      setRolePreview(getRolePreview(seeded?.baseRole));
-    }
-  }, [admin]);
-
-  // Close mobile drawer / notification popover on route change.
-  useEffect(() => {
+  // Close mobile drawer / notification popover on route change. Adjusted
+  // during render (React's recommended pattern for state that must reset
+  // in response to a prop/route change) rather than in an effect, so
+  // there's no extra render pass.
+  const [lastPathname, setLastPathname] = useState(location.pathname);
+  if (location.pathname !== lastPathname) {
+    setLastPathname(location.pathname);
     setMobileNavOpen(false);
     setNotifOpen(false);
-  }, [location.pathname]);
+  }
 
   // Click-outside to close the notifications popover.
   useEffect(() => {

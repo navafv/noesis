@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors — Cyber-Brutalist / Deep Cyprus */
+  --color-cyprus: #004741;
+  --color-cyprus-light: #0aa89b;
+  --color-cyprus-deep: #01201d;
+  --color-cyprus-void: #001715;
+  --color-cyprus-mid: #022e2a;
+  --color-sand: #f0ede4;
+  --color-emerald: #00f5d4;
+  --color-emerald-dim: #05d3b3;
+  --color-canvas: #01201d;
+  --color-surface: #022e2a;
+
+  /* Fonts */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Radii */
+  --radius-brutal: 0.25rem;
+
+  /* Custom animations */
+  --animate-mesh-drift: mesh-drift 18s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2.4s ease-in-out infinite;
+  --animate-float-slow: float-slow 6s ease-in-out infinite;
+  --animate-float-slower: float-slow 9s ease-in-out infinite;
+  --animate-ping-slow: ping-slow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-scan: scan 3s linear infinite;
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-horizon-drift: horizon-drift 14s linear infinite;
+  --animate-shimmer: shimmer 5s ease-in-out infinite;
+  --animate-orb-drift: orb-drift 22s ease-in-out infinite;
+  --animate-orb-drift-rev: orb-drift-rev 26s ease-in-out infinite;
+
+  @keyframes mesh-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(3%, -4%) scale(1.08); }
+    66% { transform: translate(-3%, 3%) scale(1.03); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.45), 0 0 20px 2px rgba(0, 245, 212, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(0, 245, 212, 0), 0 0 32px 6px rgba(0, 245, 212, 0.4);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-18px) translateX(8px); }
+  }
+
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 0.8; }
+    75%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+
+  @keyframes scan {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 40px; }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes horizon-drift {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 -160px; }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.35; transform: translateX(-2%); }
+    50% { opacity: 0.85; transform: translateX(2%); }
+  }
+
+  @keyframes orb-drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(6%, -10%); }
+  }
+
+  @keyframes orb-drift-rev {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-8%, 8%); }
+  }
+
+  @keyframes timeline-pulse {
+    0% { transform: translateY(-100%); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(600%); opacity: 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--color-canvas);
+  cursor: none;
+}
+
+@media (max-width: 1023px), (hover: none) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--color-emerald);
+  color: var(--color-cyprus-void);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-cyprus-light);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-emerald);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-emerald);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Utility layer additions */
+@layer utilities {
+  .text-glow-emerald {
+    text-shadow: 0 0 20px rgba(0, 245, 212, 0.45), 0 0 44px rgba(0, 245, 212, 0.18);
+  }
+
+  .text-glow-sand {
+    text-shadow: 0 0 18px rgba(240, 237, 228, 0.35), 0 0 36px rgba(240, 237, 228, 0.15);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 0 1px rgba(0, 245, 212, 0.15), 0 0 24px -4px rgba(0, 245, 212, 0.25);
+  }
+
+  .border-glow-sand {
+    box-shadow: 0 0 0 1px rgba(240, 237, 228, 0.14), 0 0 20px -6px rgba(240, 237, 228, 0.2);
+  }
+
+  .glass {
+    background: rgba(2, 46, 42, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(240, 237, 228, 0.12);
+  }
+
+  .radial-mesh {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(0, 245, 212, 0.14), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(10, 168, 155, 0.32), transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(0, 71, 65, 0.55), transparent 50%);
+  }
+
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(240, 237, 228, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240, 237, 228, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .noise-scan {
+    background-image: repeating-linear-gradient(
+      0deg, rgba(0, 245, 212, 0.025) 0px, rgba(0, 245, 212, 0.025) 1px,
+      transparent 1px, transparent 3px
+    );
+  }
+
+  /* Perspective horizon grid used in the hero */
+  .horizon-grid {
+    background-image:
+      linear-gradient(rgba(0, 245, 212, 0.28) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 212, 0.16) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: linear-gradient(to top, black, transparent 85%);
+    mask-image: linear-gradient(to top, black, transparent 85%);
+  }
+
+  /* Holographic scanline sweep for section headings */
+  .heading-scanline {
+    position: relative;
+    isolation: isolate;
+  }
+  .heading-scanline::after {
+    content: "";
+    position: absolute;
+    inset: -6% -3%;
+    background: linear-gradient(
+      100deg,
+      transparent 40%,
+      rgba(0, 245, 212, 0.16) 50%,
+      transparent 60%
+    );
+    background-size: 220% 100%;
+    animation: heading-sweep 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes heading-sweep {
+    0% { background-position: 130% 0; }
+    50% { background-position: -30% 0; }
+    100% { background-position: 130% 0; }
+  }
+}
+
+/* Extreme mobile performance pass: box-shadow glows and mix-blend-mode
+   layers are cheap on desktop GPUs but expensive to composite on mobile.
+   Simplify/disable them under the 768px breakpoint. */
+@media (max-width: 767px) {
+  .border-glow {
+    box-shadow: 0 0 0 1px rgba(0, 245, 212, 0.15);
+  }
+
+  .border-glow-sand {
+    box-shadow: 0 0 0 1px rgba(240, 237, 228, 0.14);
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 0 4px rgba(0, 245, 212, 0.15);
+    }
+  }
+
+  .heading-scanline::after {
+    animation: none;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+  }
+}

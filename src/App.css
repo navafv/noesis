@@ -34,8 +34,32 @@
   height: 3px;
   border-radius: 9999px;
   background: var(--color-spidey-white);
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   transition: opacity 0.2s ease;
+}
+
+/* Resting-state halo: a soft crimson/cyan glow that breathes around the
+   core dot, per the "Spider-Sense" resting state in the design brief. */
+.cyber-reticle.mode-default .reticle-dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  animation: spidey-sense-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes spidey-sense-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(229, 27, 35, 0.35),
+      0 0 0 0 rgba(0, 210, 255, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 10px 3px rgba(229, 27, 35, 0.28),
+      0 0 16px 6px rgba(0, 210, 255, 0.18);
+  }
 }
 
 .reticle-tick {
@@ -173,8 +197,14 @@
 }
 
 @keyframes web-snap {
-  from { opacity: 1; transform: scale(0.4); }
-  to { opacity: 0; transform: scale(1.6); }
+  from {
+    opacity: 1;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.6);
+  }
 }
 
 /* Text-field mode: precision I-beam replaces the crosshair entirely */
@@ -213,9 +243,11 @@
   height: 4px;
   border-radius: 9999px;
   background: var(--color-spidey-cyan);
+  box-shadow: 0 0 6px 1px rgba(0, 210, 255, 0.6);
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform, opacity;
 }
 
 .cursor-spotlight {
@@ -238,7 +270,7 @@
   will-change: transform;
 }
 
-@media (max-width: 1023px), (hover: none), (pointer: coarse) {
+@media (hover: none), (pointer: coarse) {
   .cursor-spotlight,
   .cyber-reticle,
   .cursor-spark {

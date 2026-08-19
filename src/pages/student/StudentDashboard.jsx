@@ -210,7 +210,7 @@ export default function StudentDashboard() {
                   Official Digital Fest Pass
                 </p>
                 <p className="text-[10px] uppercase tracking-[0.15em] text-spidey-white/45 font-mono">
-                  Noesis '26 · Campus Access
+                  Noesis'26 · Campus Access
                 </p>
               </div>
             </div>

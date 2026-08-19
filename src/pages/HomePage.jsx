@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <>
       <SEO
-        title="Noesis '26 | National-Level IT Fest — Jamia Hamdard Kannur"
+        title="Noesis'26 | National-Level IT Fest — Jamia Hamdard Kannur"
         description="Noesis'26 is the National-Level Inter-College IT Fest hosted by Neura IT Club, Dept. of Computer Science, Jamia Hamdard Kannur Campus. Sept 30 - Oct 01, 2026. Register now for hackathons, workshops & tech competitions."
       />
 

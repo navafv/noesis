@@ -5,24 +5,25 @@ const INTERACTIVE_SELECTOR =
 const TEXT_SELECTOR =
   'input, textarea, [contenteditable="true"], [data-cursor="text"]';
 
-const SPARK_LIFETIME = 380; // ms
+const SPARK_LIFETIME = 280; // ms — dissolves well under the 300ms budget
 const SPARK_VELOCITY_THRESHOLD = 42; // px per animation tick
 
 // Explicit touch-capability check, independent of viewport width — a
 // touchscreen laptop or a narrow-but-desktop window should not flip this,
 // and a touch device should never get mousemove/rAF listeners attached.
-const isTouchDevice = () =>
+// Mirrors the spec's exact guard: bail whenever the primary pointer isn't
+// both hover-capable and fine (mouse/trackpad), which also covers
+// "ontouchstart"/maxTouchPoints-only devices since those fail the query.
+const supportsFinePointer = () =>
   typeof window !== "undefined" &&
-  ("ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    window.matchMedia("(hover: none), (pointer: coarse)").matches);
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 export default function CustomCursor() {
   const reticleRef = useRef(null);
   const spotlightRef = useRef(null);
   const sparkLayerRef = useRef(null);
 
-  const [enabled, setEnabled] = useState(false);
+  const [enabled] = useState(() => supportsFinePointer());
   const [mode, setMode] = useState("default"); // "default" | "target" | "text"
   const [clicking, setClicking] = useState(false);
 
@@ -32,19 +33,14 @@ export default function CustomCursor() {
   const raf = useRef(null);
 
   useEffect(() => {
-    // Strict early-return: touch devices never get a custom cursor, and
-    // never get mousemove/pointerover/rAF listeners attached in the first
-    // place — not attached-then-ignored, simply never attached.
-    if (isTouchDevice()) {
-      setEnabled(false);
-      return;
-    }
-
-    const isDesktop = window.matchMedia(
-      "(min-width: 1024px) and (hover: hover) and (pointer: fine)",
-    ).matches;
-    setEnabled(isDesktop);
-    if (!isDesktop) return;
+    // Strict early-return: any device whose primary pointer isn't both
+    // hover-capable and fine never gets a custom cursor, and never gets
+    // mousemove/pointerover/rAF listeners attached in the first place —
+    // not attached-then-ignored, simply never attached. Zero CPU/battery
+    // cost on touch devices. `enabled` was resolved once, synchronously,
+    // in the lazy useState initializer above, so this effect can bail
+    // immediately without ever calling setState itself.
+    if (!enabled) return;
 
     const resolveMode = (target) => {
       if (target?.closest?.(TEXT_SELECTOR)) return "text";
@@ -66,7 +62,7 @@ export default function CustomCursor() {
       el.style.transition = `transform ${SPARK_LIFETIME}ms cubic-bezier(0.16,1,0.3,1), opacity ${SPARK_LIFETIME}ms ease`;
       layer.appendChild(el);
       requestAnimationFrame(() => {
-        el.style.transform = `translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.2)`;
+        el.style.transform = `translate3d(-50%, -50%, 0) translate(var(--dx), var(--dy)) scale(0.2)`;
         el.style.opacity = "0";
       });
       setTimeout(() => el.remove(), SPARK_LIFETIME + 40);
@@ -97,16 +93,18 @@ export default function CustomCursor() {
       reticlePos.current.x += (mouse.current.x - reticlePos.current.x) * 0.22;
       reticlePos.current.y += (mouse.current.y - reticlePos.current.y) * 0.22;
       if (reticleRef.current) {
-        reticleRef.current.style.transform = `translate(${reticlePos.current.x}px, ${reticlePos.current.y}px) translate(-50%, -50%)`;
+        reticleRef.current.style.transform = `translate3d(${reticlePos.current.x}px, ${reticlePos.current.y}px, 0) translate(-50%, -50%)`;
       }
       if (spotlightRef.current) {
-        spotlightRef.current.style.transform = `translate(${mouse.current.x}px, ${mouse.current.y}px) translate(-50%, -50%)`;
+        spotlightRef.current.style.transform = `translate3d(${mouse.current.x}px, ${mouse.current.y}px, 0) translate(-50%, -50%)`;
       }
       raf.current = requestAnimationFrame(loop);
     };
 
     window.addEventListener("mousemove", handleMove, { passive: true });
-    window.addEventListener("pointerover", handlePointerOver, { passive: true });
+    window.addEventListener("pointerover", handlePointerOver, {
+      passive: true,
+    });
     window.addEventListener("mousedown", handleDown);
     window.addEventListener("mouseup", handleUp);
     raf.current = requestAnimationFrame(loop);
@@ -118,7 +116,7 @@ export default function CustomCursor() {
       window.removeEventListener("mouseup", handleUp);
       if (raf.current) cancelAnimationFrame(raf.current);
     };
-  }, []);
+  }, [enabled]);
 
   if (!enabled) return null;
 

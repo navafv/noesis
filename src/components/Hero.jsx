@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles, MapPin } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -124,11 +125,6 @@ export default function Hero() {
     });
   }, []);
 
-  const scrollToEvents = (e) => {
-    e.preventDefault();
-    document.getElementById("events")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       id="top"
@@ -182,7 +178,7 @@ export default function Hero() {
         style={{ x: floatX, y: floatY }}
         className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto"
       >
-        {/* Venue badge */}
+        {/* Venue / date pill */}
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -248,35 +244,34 @@ export default function Hero() {
           Where Curiosity Becomes Innovation.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs — direct routes, no in-page hash anchors */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
           className="flex flex-col sm:flex-row items-center gap-4 mt-14"
         >
-          <a
-            href="#events"
-            onClick={scrollToEvents}
-            data-cursor="interactive"
-            className="liquid-shine group flex items-center gap-2 rounded-full glass border-glow-red text-spidey-white font-semibold text-sm px-7 py-3.5 hover:border-spidey-red/60 hover:-translate-y-0.5 active:translate-y-0 transition-all"
-          >
-            Explore The Arena
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-
-          <a
-            href="#register"
+          <Link
+            to="/register"
             onClick={fireConfetti}
             data-cursor="interactive"
-            className="liquid-shine group relative flex items-center gap-2 rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-7 py-3.5 overflow-hidden hover:scale-105 active:scale-95 transition-transform animate-pulse-glow"
+            className="liquid-shine group relative flex items-center gap-2 rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-7 py-3.5 overflow-hidden hover:scale-105 active:scale-95 transition-transform animate-pulse-glow order-1 sm:order-2"
           >
-            <span className="relative z-10">Direct Register</span>
+            <span className="relative z-10">Register Now</span>
             <ArrowRight
               size={16}
               className="relative z-10 group-hover:translate-x-1 transition-transform"
             />
-          </a>
+          </Link>
+
+          <Link
+            to="/events"
+            data-cursor="interactive"
+            className="liquid-shine group flex items-center gap-2 rounded-full glass border-glow-cyan text-spidey-white font-semibold text-sm px-7 py-3.5 hover:border-spidey-cyan/60 hover:-translate-y-0.5 active:translate-y-0 transition-all order-2 sm:order-1"
+          >
+            Explore 9 Flagship Events
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
       </motion.div>
     </section>

@@ -1,26 +1,34 @@
 User-agent: *
 Allow: /
+Disallow: /login
 
 # AI / answer-engine crawlers
 User-agent: GPTBot
 Allow: /
+Disallow: /login
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /login
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /login
 
 User-agent: CCBot
 Allow: /
+Disallow: /login
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /login
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /login
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /login
 
 Sitemap: https://noesis26.vercel.app/sitemap.xml

@@ -12,7 +12,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-export default function EventModal({ event, onClose }) {
+export default function EventModal({ event, onClose, onRegister }) {
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === "Escape") onClose();
@@ -172,10 +172,17 @@ export default function EventModal({ event, onClose }) {
             {/* Footer CTA */}
             <div className="sticky bottom-0 px-6 sm:px-8 py-5 bg-spidey-surface/98 md:bg-spidey-surface/90 md:backdrop-blur-md border-t border-spidey-white/10">
               <a
-                href={`#register?event=${event.id}`}
-                onClick={onClose}
+                href={onRegister ? undefined : `#register?event=${event.id}`}
+                onClick={(e) => {
+                  if (onRegister) {
+                    e.preventDefault();
+                    onRegister(event.id);
+                  } else {
+                    onClose();
+                  }
+                }}
                 data-cursor="interactive"
-                className="liquid-shine group flex items-center justify-center gap-2 w-full rounded-full bg-spidey-cyan text-spidey-canvas font-bold text-sm px-6 py-3.5 hover:scale-[1.02] active:scale-95 transition-transform animate-pulse-glow"
+                className="liquid-shine group flex items-center justify-center gap-2 w-full rounded-full bg-spidey-cyan text-spidey-canvas font-bold text-sm px-6 py-3.5 hover:scale-[1.02] active:scale-95 transition-transform animate-pulse-glow cursor-pointer"
               >
                 Register for {event.title}
                 <ArrowUpRight

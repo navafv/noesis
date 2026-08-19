@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Instagram,
   Linkedin,
@@ -9,13 +10,17 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+// Internal routes (react-router). Home-page-only sections (Highlights,
+// Gallery, FAQs) stay as hash links back to "/" so they still resolve
+// correctly from any page in the app.
 const QUICK_LINKS = [
-  { label: "Events", href: "#events" },
-  { label: "Schedule", href: "#schedule" },
-  { label: "Highlights", href: "#highlights" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "FAQs", href: "#faqs" },
-  { label: "Register", href: "#register" },
+  { label: "Events", to: "/events" },
+  { label: "Schedule", to: "/schedule" },
+  { label: "Highlights", to: "/#highlights" },
+  { label: "Gallery", to: "/#gallery" },
+  { label: "FAQs", to: "/#faqs" },
+  { label: "Register", to: "/register" },
+  { label: "Login", to: "/login" },
 ];
 
 const SOCIALS = [
@@ -28,6 +33,9 @@ const SOCIALS = [
   { icon: Github, label: "GitHub", href: "https://github.com" },
   { icon: Youtube, label: "YouTube", href: "https://youtube.com" },
 ];
+
+// Campus map — kept as a real external Google Maps link, not a router route.
+const CAMPUS_MAP_URL = "https://maps.google.com/?q=Jamia+Hamdard+Kannur+Campus";
 
 export default function Footer() {
   return (
@@ -44,7 +52,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
           {/* Branding */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center gap-3 mb-4 w-fit group">
               <div className="relative w-10 h-10 rounded-lg bg-spidey-blue border-2 border-spidey-red flex items-center justify-center overflow-hidden">
                 <span className="font-mono font-black text-spidey-red text-sm tracking-tighter">
                   N26
@@ -62,14 +70,14 @@ export default function Footer() {
                   by Neura IT Club
                 </p>
               </div>
-            </div>
+            </Link>
             <p className="text-spidey-white/55 text-sm leading-relaxed max-w-sm mb-4">
               A National-Level Inter-College IT Fest hosted by the Neura IT
               Club, Department of Computer Science, Jamia Hamdard Kannur Campus.
               Where Curiosity Becomes Innovation.
             </p>
             <a
-              href="https://maps.google.com/?q=Jamia+Hamdard+Kannur+Campus"
+              href={CAMPUS_MAP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs font-mono text-spidey-cyan hover:gap-2.5 transition-all"
@@ -87,13 +95,13 @@ export default function Footer() {
             </p>
             <ul className="space-y-2.5">
               {QUICK_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
                     className="text-sm text-spidey-white/65 hover:text-spidey-cyan transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -123,9 +131,19 @@ export default function Footer() {
                   +91 99950 61050
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-spidey-white/65">
-                <MapPin size={14} className="text-spidey-cyan shrink-0 mt-0.5" />
-                Jamia Hamdard Kannur Campus, Kannur City, Kerala 670003
+              <li>
+                <a
+                  href={CAMPUS_MAP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-sm text-spidey-white/65 hover:text-spidey-cyan transition-colors"
+                >
+                  <MapPin
+                    size={14}
+                    className="text-spidey-cyan shrink-0 mt-0.5"
+                  />
+                  Jamia Hamdard Kannur Campus, Kannur City, Kerala 670003
+                </a>
               </li>
             </ul>
 

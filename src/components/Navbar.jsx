@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, ShieldCheck } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Events", href: "#events" },
-  { label: "Schedule", href: "#schedule" },
-  { label: "Highlights", href: "#highlights" },
-  { label: "FAQs", href: "#faqs" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", to: "/", end: true },
+  { label: "Events", to: "/events" },
+  { label: "Schedule", to: "/schedule" },
+  { label: "Register", to: "/register" },
 ];
 
 export default function Navbar() {
@@ -15,6 +15,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const btnRef = useRef(null);
   const [magnet, setMagnet] = useState({ x: 0, y: 0 });
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -28,6 +29,11 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  // Auto-close the mobile drawer on any route change.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   const handleMouseMove = (e) => {
     const el = btnRef.current;
@@ -58,7 +64,7 @@ export default function Navbar() {
           }`}
         >
           {/* Branding — "N26" badge, web-corner accents */}
-          <a href="#top" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 rounded-lg bg-spidey-blue border-2 border-spidey-red flex items-center justify-center overflow-hidden">
               <span className="font-mono font-black text-spidey-red text-sm tracking-tighter">
                 N26
@@ -78,29 +84,45 @@ export default function Navbar() {
                 by Neura IT Club
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
-              <li key={link.href} className="relative group">
-                <a
-                  href={link.href}
-                  className="text-sm font-medium text-spidey-white/80 hover:text-spidey-white transition-colors tracking-wide"
+              <li key={link.to} className="relative group">
+                <NavLink
+                  to={link.to}
+                  end={link.end}
+                  className={({ isActive }) =>
+                    `text-sm font-medium tracking-wide transition-colors ${
+                      isActive
+                        ? "text-spidey-white"
+                        : "text-spidey-white/80 hover:text-spidey-white"
+                    }`
+                  }
                 >
-                  {link.label}
-                </a>
-                <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-spidey-red shadow-[0_0_8px_1px_rgba(229,27,35,0.6)] group-hover:w-full transition-all duration-300 ease-out" />
+                  {({ isActive }) => (
+                    <>
+                      {link.label}
+                      {/* Spider-Verse red laser underline — active state is a solid,
+                          glowing beam; hover state is the same beam sweeping in. */}
+                      <span
+                        aria-hidden
+                        className={`absolute -bottom-1.5 left-0 h-[2px] bg-spidey-red shadow-[0_0_8px_1px_rgba(229,27,35,0.6)] transition-all duration-300 ease-out ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </>
+                  )}
+                </NavLink>
               </li>
             ))}
           </ul>
 
           {/* CTA + Mobile Toggle */}
           <div className="flex items-center gap-3">
-            <motion.a
+            <motion.div
               ref={btnRef}
-              href="#register"
-              data-cursor="interactive"
               onMouseMove={handleMouseMove}
               onMouseLeave={resetMagnet}
               animate={{ x: magnet.x, y: magnet.y }}
@@ -110,11 +132,30 @@ export default function Navbar() {
                 damping: 12,
                 mass: 0.3,
               }}
-              className="magnetic-btn liquid-shine hidden sm:inline-flex items-center gap-1.5 rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-5 py-2.5 animate-pulse-glow hover:scale-105 active:scale-95 transition-transform"
+              className="hidden sm:block"
             >
-              Register Now
-              <ArrowUpRight size={16} strokeWidth={2.5} />
-            </motion.a>
+              <NavLink
+                to="/login"
+                data-cursor="interactive"
+                className={({ isActive }) =>
+                  `magnetic-btn liquid-shine inline-flex items-center gap-1.5 rounded-full font-bold text-sm px-5 py-2.5 transition-all ${
+                    isActive
+                      ? "bg-spidey-cyan text-spidey-blue"
+                      : "bg-spidey-red text-spidey-white animate-pulse-glow hover:scale-105 active:scale-95"
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {isActive ? (
+                      <ShieldCheck size={16} strokeWidth={2.5} />
+                    ) : null}
+                    {isActive ? "Portal" : "Login"}
+                    {!isActive && <ArrowUpRight size={16} strokeWidth={2.5} />}
+                  </>
+                )}
+              </NavLink>
+            </motion.div>
 
             <button
               onClick={() => setMobileOpen(true)}
@@ -161,31 +202,64 @@ export default function Navbar() {
               <ul className="flex flex-col px-6 py-8 gap-2">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
-                    key={link.href}
+                    key={link.to}
                     initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.06 }}
                   >
-                    <a
-                      href={link.href}
+                    <NavLink
+                      to={link.to}
+                      end={link.end}
                       onClick={() => setMobileOpen(false)}
-                      className="block py-3 text-lg font-medium text-spidey-white/85 border-b border-spidey-white/5"
+                      className={({ isActive }) =>
+                        `relative block py-3 pl-4 text-lg font-medium border-b border-spidey-white/5 transition-colors ${
+                          isActive
+                            ? "text-spidey-white"
+                            : "text-spidey-white/85"
+                        }`
+                      }
                     >
-                      {link.label}
-                    </a>
+                      {({ isActive }) => (
+                        <>
+                          {link.label}
+                          {/* Red laser marker on the active mobile item */}
+                          <span
+                            aria-hidden
+                            className={`absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-full bg-spidey-red shadow-[0_0_8px_1px_rgba(229,27,35,0.6)] transition-opacity duration-300 ${
+                              isActive ? "opacity-100" : "opacity-0"
+                            }`}
+                          />
+                        </>
+                      )}
+                    </NavLink>
                   </motion.li>
                 ))}
               </ul>
 
-              <div className="mt-auto px-6 pb-10">
-                <a
-                  href="#register"
+              <div className="mt-auto px-6 pb-10 flex flex-col gap-3">
+                <NavLink
+                  to="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-5 py-3.5"
+                  className={({ isActive }) =>
+                    `flex items-center justify-center gap-2 w-full rounded-full font-bold text-sm px-5 py-3.5 transition-colors ${
+                      isActive
+                        ? "bg-spidey-cyan text-spidey-blue"
+                        : "bg-spidey-red text-spidey-white"
+                    }`
+                  }
                 >
-                  Register Now
-                  <ArrowUpRight size={16} strokeWidth={2.5} />
-                </a>
+                  {({ isActive }) => (
+                    <>
+                      {isActive ? (
+                        <ShieldCheck size={16} strokeWidth={2.5} />
+                      ) : null}
+                      {isActive ? "Portal" : "Login"}
+                      {!isActive && (
+                        <ArrowUpRight size={16} strokeWidth={2.5} />
+                      )}
+                    </>
+                  )}
+                </NavLink>
               </div>
             </motion.div>
           </>

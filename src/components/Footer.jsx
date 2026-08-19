@@ -9,17 +9,19 @@ import {
   MapPin,
   ArrowUpRight,
 } from "lucide-react";
+import { PRIMARY_ROUTES } from "../data/routes";
 
 // Internal routes (react-router). Home-page-only sections (Highlights,
 // Gallery, FAQs) stay as hash links back to "/" so they still resolve
-// correctly from any page in the app.
+// correctly from any page in the app. Pulls Events/Schedule/Register from
+// the shared PRIMARY_ROUTES list (see Navbar) and layers on the
+// footer-only entries (hash anchors + Login); "Home" is skipped since the
+// logo already links there.
 const QUICK_LINKS = [
-  { label: "Events", to: "/events" },
-  { label: "Schedule", to: "/schedule" },
+  ...PRIMARY_ROUTES.filter((route) => route.to !== "/"),
   { label: "Highlights", to: "/#highlights" },
   { label: "Gallery", to: "/#gallery" },
   { label: "FAQs", to: "/#faqs" },
-  { label: "Register", to: "/register" },
   { label: "Login", to: "/login" },
 ];
 

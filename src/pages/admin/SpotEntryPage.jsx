@@ -12,6 +12,7 @@ import {
   History,
 } from "lucide-react";
 import { EVENTS } from "../../data/eventsData";
+import { formatShortTime } from "../../lib/utils";
 
 const SPOT_FEE_BY_EVENT = {
   coding: 500,
@@ -103,7 +104,7 @@ export default function SpotEntryPage() {
       teamSize: form.teamSize,
       paymentMode: form.paymentMode,
       fee,
-      time: new Date().toLocaleTimeString(undefined, { timeStyle: "short" }),
+      time: formatShortTime(),
     };
 
     setQueue((prev) => [record, ...prev]);

@@ -2,13 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, ShieldCheck } from "lucide-react";
-
-const NAV_LINKS = [
-  { label: "Home", to: "/", end: true },
-  { label: "Events", to: "/events" },
-  { label: "Schedule", to: "/schedule" },
-  { label: "Register", to: "/register" },
-];
+import { PRIMARY_ROUTES } from "../data/routes";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -88,7 +82,7 @@ export default function Navbar() {
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
+            {PRIMARY_ROUTES.map((link) => (
               <li key={link.to} className="relative group">
                 <NavLink
                   to={link.to}
@@ -200,7 +194,7 @@ export default function Navbar() {
               </div>
 
               <ul className="flex flex-col px-6 py-8 gap-2">
-                {NAV_LINKS.map((link, i) => (
+                {PRIMARY_ROUTES.map((link, i) => (
                   <motion.li
                     key={link.to}
                     initial={{ opacity: 0, x: 24 }}

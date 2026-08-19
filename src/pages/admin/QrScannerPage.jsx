@@ -12,39 +12,8 @@ import {
   History,
   Zap,
 } from "lucide-react";
-
-/**
- * Mock pass registry — swap for a real lookup against the
- * registrations/tickets table once the backend is wired up. Keys are
- * the payload a participant's QR pass would encode.
- */
-const MOCK_PASS_REGISTRY = {
-  "N26-PASS-10231": {
-    name: "Aarav Mehta",
-    event: "Coding — Hackathon Finals",
-    college: "Vishwakarma Institute of Technology",
-    ticket: "Team",
-  },
-  "N26-PASS-10232": {
-    name: "Ishita Rao",
-    event: "Web Designing",
-    college: "Pune Institute of Computer Technology",
-    ticket: "Individual",
-  },
-  "N26-PASS-10236": {
-    name: "Neha Deshmukh",
-    event: "Web Designing",
-    college: "Vishwakarma Institute of Technology",
-    ticket: "Individual",
-  },
-  "N26-PASS-DUPLICATE": {
-    name: "Kabir Shah",
-    event: "Debugging",
-    college: "Symbiosis Institute of Technology",
-    ticket: "Individual",
-    _alreadyCheckedIn: true,
-  },
-};
+import { formatShortTime } from "../../lib/utils";
+import { MOCK_PASS_REGISTRY } from "../../data/mock/passRegistry";
 
 const DOORS = [
   "Computer Lab A",
@@ -127,7 +96,7 @@ export default function QrScannerPage() {
       status,
       entry,
       door,
-      time: new Date().toLocaleTimeString(undefined, { timeStyle: "short" }),
+      time: formatShortTime(),
     };
     setResult(record);
     setLog((prev) => [record, ...prev].slice(0, 12));

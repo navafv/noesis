@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import AdminLayout from "./layouts/AdminLayout";
+import DevRouteSwitcher from "./components/DevRouteSwitcher";
 
 import HomePage from "./pages/HomePage";
 import EventsPage from "./pages/EventsPage";
@@ -81,6 +82,14 @@ export default function App() {
           <Route path="spot-entry" element={<SpotEntryPage />} />
         </Route>
       </Routes>
+
+      {/* Dev-only floating route dock — lets every public, student, and
+          admin route be reached in one click during local development.
+          Mounted here (rather than inside RootLayout) so it persists
+          across ALL layouts, including /student/* and /admin/*, which
+          RootLayout never wraps. It's a no-op outside dev — see the
+          `import.meta.env.DEV` guard inside the component itself. */}
+      <DevRouteSwitcher />
     </BrowserRouter>
   );
 }

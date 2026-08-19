@@ -393,7 +393,7 @@ function ResultBanner({ status }) {
     },
     duplicate: {
       icon: AlertTriangle,
-      cls: "text-yellow-400 bg-yellow-400/10 border-yellow-400/40",
+      cls: "text-spidey-red bg-spidey-red/10 border-spidey-red/40",
       label: "Already Checked In",
     },
     invalid: {
@@ -418,7 +418,7 @@ function StatusDot({ status }) {
     status === "success"
       ? "bg-spidey-cyan"
       : status === "duplicate"
-        ? "bg-yellow-400"
+        ? "bg-spidey-red"
         : "bg-spidey-red-light";
   return (
     <span className={`w-2 h-2 rounded-full shrink-0 ${cls}`} aria-hidden />

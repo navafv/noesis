@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles, MapPin } from "lucide-react";
 import confetti from "canvas-confetti";
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
-const HEADLINE = "NOESIS '26";
+const HEADLINE = "NOESIS'26";
 
 /**
  * Scramble engine with two modes:
@@ -120,7 +120,7 @@ export default function Hero() {
       particleCount: 100,
       spread: 80,
       origin: { y: 0.6 },
-      colors: ["#00F5D4", "#004741", "#F0EDE4"],
+      colors: ["#00d2ff", "#e51b23", "#f4f6fb"],
     });
   }, []);
 
@@ -144,11 +144,11 @@ export default function Hero() {
         aria-hidden
       />
       <div
-        className="absolute top-[8%] left-[10%] -z-20 w-72 h-72 rounded-full bg-emerald/10 blur-[90px] animate-orb-drift"
+        className="absolute top-[8%] left-[10%] -z-20 w-72 h-72 rounded-full bg-spidey-cyan/10 blur-[90px] animate-orb-drift"
         aria-hidden
       />
       <div
-        className="absolute bottom-[10%] right-[12%] -z-20 w-80 h-80 rounded-full bg-cyprus-light/20 blur-[100px] animate-orb-drift-rev"
+        className="absolute bottom-[10%] right-[12%] -z-20 w-80 h-80 rounded-full bg-spidey-red-light/20 blur-[100px] animate-orb-drift-rev"
         aria-hidden
       />
 
@@ -165,17 +165,17 @@ export default function Hero() {
         <div className="absolute inset-0 horizon-grid animate-horizon-drift" />
       </div>
       <div
-        className="absolute inset-x-0 bottom-0 -z-10 h-[30vh] bg-gradient-to-t from-canvas via-canvas/80 to-transparent"
+        className="absolute inset-x-0 bottom-0 -z-10 h-[30vh] bg-gradient-to-t from-spidey-blue via-spidey-blue/80 to-transparent"
         aria-hidden
       />
 
       {/* Floating particles */}
       <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden>
-        <span className="absolute top-[18%] left-[12%] w-1.5 h-1.5 rounded-full bg-emerald/60 animate-float-slow" />
-        <span className="absolute top-[70%] left-[20%] w-1 h-1 rounded-full bg-sand/40 animate-float-slower" />
-        <span className="absolute top-[30%] left-[85%] w-2 h-2 rounded-full bg-emerald/40 animate-float-slower" />
-        <span className="absolute top-[80%] left-[75%] w-1.5 h-1.5 rounded-full bg-cyprus-light/70 animate-float-slow" />
-        <span className="absolute top-[50%] left-[50%] w-1 h-1 rounded-full bg-sand/30 animate-float-slow" />
+        <span className="absolute top-[18%] left-[12%] w-1.5 h-1.5 rounded-full bg-spidey-cyan/60 animate-float-slow" />
+        <span className="absolute top-[70%] left-[20%] w-1 h-1 rounded-full bg-spidey-white/40 animate-float-slower" />
+        <span className="absolute top-[30%] left-[85%] w-2 h-2 rounded-full bg-spidey-cyan/40 animate-float-slower" />
+        <span className="absolute top-[80%] left-[75%] w-1.5 h-1.5 rounded-full bg-spidey-red-light/70 animate-float-slow" />
+        <span className="absolute top-[50%] left-[50%] w-1 h-1 rounded-full bg-spidey-white/30 animate-float-slow" />
       </div>
 
       <motion.div
@@ -187,13 +187,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 mb-6 text-xs sm:text-sm text-sand/80 font-mono"
+          className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 mb-6 text-xs sm:text-sm text-spidey-white/80 font-mono"
         >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald" />
+            <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-spidey-cyan opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-spidey-cyan" />
           </span>
-          <MapPin size={13} className="text-emerald" />
+          <MapPin size={13} className="text-spidey-cyan" />
           Jamia Hamdard Kannur Campus • Sept 30 – Oct 01, 2026
         </motion.div>
 
@@ -202,16 +202,26 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.15, duration: 0.6 }}
-          className="flex items-center gap-2 text-emerald font-mono text-xs sm:text-sm uppercase tracking-[0.3em] mb-4"
+          className="flex items-center gap-2 text-spidey-cyan font-mono text-xs sm:text-sm uppercase tracking-[0.3em] mb-4"
         >
           <Sparkles size={14} />
           Neura IT Club presents
         </motion.p>
 
+        {/* Comic-tech badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="inline-flex items-center gap-2 rounded-md border border-spidey-red/50 bg-spidey-red/10 px-3 py-1 mb-5 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-spidey-red-light border-glow-red"
+        >
+          With Great Code Comes Great Innovation
+        </motion.div>
+
         {/* 3D kinetic headline */}
         <motion.h1
           style={{ rotateX, rotateY }}
-          className="scrambled-char preserve-3d font-display font-black text-[clamp(2.75rem,10vw,7rem)] leading-[0.95] tracking-tight text-sand text-glow-emerald select-none cursor-default"
+          className="scrambled-char preserve-3d font-display font-black text-[clamp(2.75rem,10vw,7rem)] leading-[0.95] tracking-tight text-spidey-white text-glow-cyan select-none cursor-default"
         >
           {(mounted ? scrambled : HEADLINE).split("").map((char, i) => (
             <motion.span
@@ -219,7 +229,7 @@ export default function Hero() {
               onMouseEnter={() => mounted && scrambled === HEADLINE && scrambleAt(i)}
               className={
                 char === "'" || char === "2" || char === "6"
-                  ? "text-emerald inline-block"
+                  ? "text-spidey-cyan inline-block"
                   : "inline-block"
               }
             >
@@ -233,7 +243,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-5 text-base sm:text-lg md:text-xl text-sand/70 font-medium max-w-xl"
+          className="mt-5 text-base sm:text-lg md:text-xl text-spidey-white/70 font-medium max-w-xl"
         >
           Where Curiosity Becomes Innovation.
         </motion.p>
@@ -249,9 +259,9 @@ export default function Hero() {
             href="#events"
             onClick={scrollToEvents}
             data-cursor="interactive"
-            className="liquid-shine group flex items-center gap-2 rounded-full glass border-glow-sand text-sand font-semibold text-sm px-7 py-3.5 hover:border-emerald/50 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+            className="liquid-shine group flex items-center gap-2 rounded-full glass border-glow-red text-spidey-white font-semibold text-sm px-7 py-3.5 hover:border-spidey-red/60 hover:-translate-y-0.5 active:translate-y-0 transition-all"
           >
-            Explore Events
+            Explore The Arena
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>
 
@@ -259,9 +269,9 @@ export default function Hero() {
             href="#register"
             onClick={fireConfetti}
             data-cursor="interactive"
-            className="liquid-shine group relative flex items-center gap-2 rounded-full bg-emerald text-cyprus-void font-bold text-sm px-7 py-3.5 overflow-hidden hover:scale-105 active:scale-95 transition-transform animate-pulse-glow"
+            className="liquid-shine group relative flex items-center gap-2 rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-7 py-3.5 overflow-hidden hover:scale-105 active:scale-95 transition-transform animate-pulse-glow"
           >
-            <span className="relative z-10">Register Now</span>
+            <span className="relative z-10">Direct Register</span>
             <ArrowRight
               size={16}
               className="relative z-10 group-hover:translate-x-1 transition-transform"

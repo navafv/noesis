@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 /**
- * Central data store for all Noesis '26 events.
+ * Central data store for all Noesis'26 events.
  * `id` is used as the anchor/query key for deep-linking from
  * EventsSection -> EventModal -> #register (pre-selection).
  */
@@ -284,9 +284,9 @@ export const EVENTS = [
     time: "Submission by Day 2, 03:30 PM",
     venue: "Campus-wide",
     description:
-      "Capture the high energy of Noesis '26 in a creative 60-second Instagram reel.",
+      "Capture the high energy of Noesis'26 in a creative 60-second Instagram reel.",
     longDescription:
-      "Shoot and edit an original 60-second reel capturing the spirit of Noesis '26 — candid moments, event highlights, or a creative concept piece. Submitted reels are shared on the official Instagram for a public engagement round.",
+      "Shoot and edit an original 60-second reel capturing the spirit of Noesis'26 — candid moments, event highlights, or a creative concept piece. Submitted reels are shared on the official Instagram for a public engagement round.",
     guidelines: [
       "Max duration: 60 seconds. Original footage only (shot during the fest).",
       "Must tag @noesis.26 and use the official event hashtag.",

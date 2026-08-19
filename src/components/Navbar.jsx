@@ -53,23 +53,28 @@ export default function Navbar() {
         <nav
           className={`w-[92%] md:w-[88%] max-w-6xl flex items-center justify-between rounded-2xl px-4 md:px-6 py-3 transition-all duration-500 ${
             scrolled
-              ? "bg-cyprus/90 border border-sand/10 md:glass border-glow"
+              ? "bg-spidey-blue/90 border border-spidey-white/10 md:glass border-glow-red"
               : "bg-transparent border border-transparent"
           }`}
         >
-          {/* Branding */}
+          {/* Branding — "N26" badge, web-corner accents */}
           <a href="#top" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-lg bg-cyprus border border-emerald/30 flex items-center justify-center overflow-hidden">
-              <span className="font-mono font-bold text-emerald text-sm tracking-tighter">
-                <img src="logo.png" alt="Noesis Logo" />
+            <div className="relative w-10 h-10 rounded-lg bg-spidey-blue border-2 border-spidey-red flex items-center justify-center overflow-hidden">
+              <span className="font-mono font-black text-spidey-red text-sm tracking-tighter">
+                N26
               </span>
-              <span className="absolute inset-0 bg-gradient-to-tr from-emerald/0 via-emerald/10 to-emerald/0 group-hover:translate-x-full transition-transform duration-700" />
+              {/* web-corner accents */}
+              <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-spidey-cyan/70" />
+              <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-spidey-cyan/70" />
+              <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-spidey-cyan/70" />
+              <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-spidey-cyan/70" />
+              <span className="absolute inset-0 bg-gradient-to-tr from-spidey-cyan/0 via-spidey-cyan/10 to-spidey-cyan/0 group-hover:translate-x-full transition-transform duration-700" />
             </div>
             <div className="leading-tight hidden sm:block">
-              <p className="font-bold text-sand tracking-tight text-sm md:text-base">
-                Noesis <span className="text-emerald">'26</span>
+              <p className="font-bold text-spidey-white tracking-tight text-sm md:text-base">
+                Noesis <span className="text-spidey-cyan">'26</span>
               </p>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-sand/50 font-mono">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-spidey-white/50 font-mono">
                 by Neura IT Club
               </p>
             </div>
@@ -81,11 +86,11 @@ export default function Navbar() {
               <li key={link.href} className="relative group">
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-sand/80 hover:text-sand transition-colors tracking-wide"
+                  className="text-sm font-medium text-spidey-white/80 hover:text-spidey-white transition-colors tracking-wide"
                 >
                   {link.label}
                 </a>
-                <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-emerald shadow-[0_0_8px_1px_rgba(0,245,212,0.6)] group-hover:w-full transition-all duration-300 ease-out" />
+                <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-spidey-red shadow-[0_0_8px_1px_rgba(229,27,35,0.6)] group-hover:w-full transition-all duration-300 ease-out" />
               </li>
             ))}
           </ul>
@@ -105,7 +110,7 @@ export default function Navbar() {
                 damping: 12,
                 mass: 0.3,
               }}
-              className="magnetic-btn liquid-shine hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald text-cyprus-void font-bold text-sm px-5 py-2.5 animate-pulse-glow hover:scale-105 active:scale-95 transition-transform"
+              className="magnetic-btn liquid-shine hidden sm:inline-flex items-center gap-1.5 rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-5 py-2.5 animate-pulse-glow hover:scale-105 active:scale-95 transition-transform"
             >
               Register Now
               <ArrowUpRight size={16} strokeWidth={2.5} />
@@ -113,7 +118,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden p-2 rounded-lg border border-sand/15 text-sand"
+              className="md:hidden p-2 rounded-lg border border-spidey-white/15 text-spidey-white"
               aria-label="Open menu"
             >
               <Menu size={20} />
@@ -131,22 +136,22 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-[60] bg-canvas/90 md:hidden"
+              className="fixed inset-0 z-[60] bg-spidey-blue/90 md:hidden"
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 280, damping: 32 }}
-              className="fixed top-0 right-0 z-[70] h-full w-[80%] max-w-sm bg-surface border-l border-sand/10 md:hidden flex flex-col"
+              className="fixed top-0 right-0 z-[70] h-full w-[80%] max-w-sm bg-spidey-surface border-l border-spidey-white/10 md:hidden flex flex-col"
             >
-              <div className="flex items-center justify-between px-6 py-5 border-b border-sand/10">
-                <p className="font-bold text-sand">
-                  Noesis <span className="text-emerald">'26</span>
+              <div className="flex items-center justify-between px-6 py-5 border-b border-spidey-white/10">
+                <p className="font-bold text-spidey-white">
+                  Noesis <span className="text-spidey-cyan">'26</span>
                 </p>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="p-2 rounded-lg border border-sand/15 text-sand"
+                  className="p-2 rounded-lg border border-spidey-white/15 text-spidey-white"
                   aria-label="Close menu"
                 >
                   <X size={20} />
@@ -164,7 +169,7 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="block py-3 text-lg font-medium text-sand/85 border-b border-sand/5"
+                      className="block py-3 text-lg font-medium text-spidey-white/85 border-b border-spidey-white/5"
                     >
                       {link.label}
                     </a>
@@ -176,7 +181,7 @@ export default function Navbar() {
                 <a
                   href="#register"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full rounded-full bg-emerald text-cyprus-void font-bold text-sm px-5 py-3.5"
+                  className="flex items-center justify-center gap-2 w-full rounded-full bg-spidey-red text-spidey-white font-bold text-sm px-5 py-3.5"
                 >
                   Register Now
                   <ArrowUpRight size={16} strokeWidth={2.5} />

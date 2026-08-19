@@ -4,7 +4,7 @@ import { TerminalSquare, X, Volume2, VolumeX } from "lucide-react";
 import { EVENTS } from "../data/eventsData";
 
 const WELCOME = [
-  "noesis-cli v1.0.0 — Neura IT Club",
+  "web-os :: spidey-cli v2.6.0 — Neura IT Club",
   "Type 'help' to see available commands.",
 ];
 
@@ -126,15 +126,16 @@ export default function TerminalEasterEgg() {
       case "help":
         push([
           "Available commands:",
-          "  help     — show this list",
-          "  events   — list all Noesis '26 events",
-          "  prize    — show total prize pool",
-          "  theme    — show fest theme",
-          "  contact  — show organizer contact info",
-          "  sudo     — try your luck",
-          "  mute     — mute background music",
-          "  play     — unmute / resume background music",
-          "  clear    — clear the terminal",
+          "  help          — show this list",
+          "  events        — list all Noesis'26 events",
+          "  prize         — show total prize pool",
+          "  theme         — show fest theme",
+          "  spider-sense  — ping the venue & dates",
+          "  multiverse    — jump between fest sections",
+          "  contact       — show organizer contact info",
+          "  mute          — mute background music",
+          "  play          — unmute / resume background music",
+          "  clear         — clear the terminal",
         ]);
         break;
       case "events":
@@ -148,7 +149,22 @@ export default function TerminalEasterEgg() {
         push(["  Total Prize Pool: ₹50,000+"]);
         break;
       case "theme":
-        push(['  "Where Curiosity Becomes Innovation."']);
+        push([
+          '  "Where Curiosity Becomes Innovation."',
+          "  Visual identity: Web-Slinger Tech / Comic-Brutalist.",
+        ]);
+        break;
+      case "spider-sense":
+        push([
+          "  📍 Tingling... signal locked.",
+          "  Jamia Hamdard Kannur Campus • Sept 30 – Oct 01, 2026",
+        ]);
+        break;
+      case "multiverse":
+        push([
+          "  Available dimensions: #events #schedule #highlights #faqs #register",
+          "  usage: multiverse <dimension> — e.g. multiverse events",
+        ]);
         break;
       case "contact":
         push([
@@ -181,6 +197,17 @@ export default function TerminalEasterEgg() {
         setLines(WELCOME);
         return;
       default:
+        if (cmd.startsWith("multiverse ")) {
+          const dest = cmd.split(" ")[1];
+          const valid = ["events", "schedule", "highlights", "faqs", "register"];
+          if (valid.includes(dest)) {
+            document.getElementById(dest)?.scrollIntoView({ behavior: "smooth" });
+            push([`  Jumping to dimension: #${dest}`]);
+          } else {
+            push([`  Unknown dimension: ${dest}`]);
+          }
+          break;
+        }
         push([
           `  command not found: ${cmd}`,
           "  type 'help' for a list of commands",
@@ -201,7 +228,7 @@ export default function TerminalEasterEgg() {
         onClick={toggle}
         aria-label="Open terminal"
         data-cursor="interactive"
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass border-glow flex items-center justify-center text-emerald hover:scale-105 active:scale-95 transition-transform"
+        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass border-glow flex items-center justify-center text-spidey-cyan hover:scale-105 active:scale-95 transition-transform"
       >
         <TerminalSquare size={20} />
       </button>
@@ -214,22 +241,22 @@ export default function TerminalEasterEgg() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[110] bg-canvas/90 md:bg-canvas/80 md:backdrop-blur-sm"
+              className="fixed inset-0 z-[110] bg-spidey-blue/90 md:bg-spidey-blue/80 md:backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.97 }}
               transition={{ type: "spring", stiffness: 280, damping: 28 }}
-              className="fixed bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-[120] w-[92%] max-w-xl rounded-xl border border-emerald/30 bg-canvas/98 md:bg-canvas/95 md:backdrop-blur-md overflow-hidden font-mono"
+              className="fixed bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-[120] w-[92%] max-w-xl rounded-xl border border-spidey-cyan/30 bg-spidey-blue/98 md:bg-spidey-blue/95 md:backdrop-blur-md overflow-hidden font-mono"
             >
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-sand/10 bg-surface/70">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-spidey-white/10 bg-spidey-surface/70">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald/70" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyprus-light/70" />
-                  <span className="ml-2 text-[11px] text-sand/50">
-                    ~/noesis-cli
+                  <span className="w-2.5 h-2.5 rounded-full bg-spidey-cyan/70" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-spidey-red-light/70" />
+                  <span className="ml-2 text-[11px] text-spidey-white/50">
+                    ~/spidey-cli
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -238,7 +265,7 @@ export default function TerminalEasterEgg() {
                     data-cursor="interactive"
                     aria-label={muted ? "Unmute background music" : "Mute background music"}
                     aria-pressed={muted}
-                    className="text-sand/50 hover:text-sand transition-colors"
+                    className="text-spidey-white/50 hover:text-spidey-white transition-colors"
                   >
                     {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
                   </button>
@@ -246,7 +273,7 @@ export default function TerminalEasterEgg() {
                     onClick={() => setOpen(false)}
                     data-cursor="interactive"
                     aria-label="Close terminal"
-                    className="text-sand/50 hover:text-sand"
+                    className="text-spidey-white/50 hover:text-spidey-white"
                   >
                     <X size={15} />
                   </button>
@@ -262,8 +289,8 @@ export default function TerminalEasterEgg() {
                     key={i}
                     className={
                       line.startsWith("$")
-                        ? "text-emerald"
-                        : "text-sand/70 whitespace-pre-wrap"
+                        ? "text-spidey-cyan"
+                        : "text-spidey-white/70 whitespace-pre-wrap"
                     }
                   >
                     {line}
@@ -273,15 +300,15 @@ export default function TerminalEasterEgg() {
 
               <form
                 onSubmit={handleSubmit}
-                className="flex items-center gap-2 px-4 py-3 border-t border-sand/10"
+                className="flex items-center gap-2 px-4 py-3 border-t border-spidey-white/10"
               >
-                <span className="text-emerald text-sm">➜</span>
+                <span className="text-spidey-cyan text-sm">➜</span>
                 <input
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   data-cursor="text"
-                  className="flex-1 bg-transparent outline-none text-sand text-sm placeholder:text-sand/30"
+                  className="flex-1 bg-transparent outline-none text-spidey-white text-sm placeholder:text-spidey-white/30"
                   placeholder="type a command..."
                   autoComplete="off"
                   spellCheck={false}

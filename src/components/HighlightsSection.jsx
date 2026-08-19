@@ -37,16 +37,16 @@ function FeatureCard({ feature: f, index: i }) {
       onMouseMove={handlePointerMove}
       onMouseLeave={handlePointerLeave}
       data-cursor="interactive"
-      className="spotlight-card relative rounded-brutal border border-sand/10 bg-surface/40 px-6 py-7 group hover:border-emerald/30 transition-[border-color] duration-300"
+      className="spotlight-card relative rounded-brutal border border-spidey-white/10 bg-spidey-surface/40 px-6 py-7 group hover:border-spidey-cyan/30 transition-[border-color] duration-300"
       style={{ transformStyle: "preserve-3d", willChange: "transform" }}
     >
-      <span className="relative z-10 font-mono text-emerald/40 text-4xl font-black block mb-3">
+      <span className="relative z-10 font-mono text-spidey-cyan/40 text-4xl font-black block mb-3">
         0{i + 1}
       </span>
-      <h3 className="relative z-10 font-display font-bold text-lg text-sand mb-2">
+      <h3 className="relative z-10 font-display font-bold text-lg text-spidey-white mb-2">
         {f.title}
       </h3>
-      <p className="relative z-10 text-sand/60 text-sm leading-relaxed">
+      <p className="relative z-10 text-spidey-white/60 text-sm leading-relaxed">
         {f.description}
       </p>
     </motion.div>
@@ -84,7 +84,7 @@ export default function HighlightsSection() {
       className="relative py-24 sm:py-32 px-4 overflow-hidden"
     >
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] -z-10 rounded-full blur-[140px] opacity-15 bg-emerald"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] -z-10 rounded-full blur-[140px] opacity-15 bg-spidey-cyan"
         aria-hidden
       />
 
@@ -97,10 +97,10 @@ export default function HighlightsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <LiveTag className="font-mono text-xs uppercase tracking-[0.3em] text-emerald mb-3">
+          <LiveTag className="font-mono text-xs uppercase tracking-[0.3em] text-spidey-cyan mb-3">
             By The Numbers
           </LiveTag>
-          <h2 className="heading-scanline font-display font-black text-4xl sm:text-5xl md:text-6xl text-sand tracking-tight">
+          <h2 className="heading-scanline font-display font-black text-4xl sm:text-5xl md:text-6xl text-spidey-white tracking-tight">
             Fest Highlights
           </h2>
         </motion.div>
@@ -115,17 +115,17 @@ export default function HighlightsSection() {
               whileHover={{ y: -5 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="rounded-brutal border border-sand/10 bg-surface/60 backdrop-blur-sm px-4 py-6 sm:py-8 flex flex-col items-center text-center hover:border-emerald/30 transition-colors"
+              className="rounded-brutal border border-spidey-white/10 bg-spidey-surface/60 backdrop-blur-sm px-4 py-6 sm:py-8 flex flex-col items-center text-center hover:border-spidey-red/40 transition-colors"
             >
-              <stat.icon size={20} className="text-emerald mb-3" />
-              <p className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-sand">
+              <stat.icon size={20} className="text-spidey-cyan mb-3" />
+              <p className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-spidey-red-light text-glow-red">
                 <AnimatedNumber
                   value={stat.value}
                   prefix={stat.prefix}
                   suffix={stat.suffix}
                 />
               </p>
-              <p className="text-[10px] sm:text-xs text-sand/50 font-mono uppercase tracking-[0.1em] mt-2 leading-snug">
+              <p className="text-[10px] sm:text-xs text-spidey-white/50 font-mono uppercase tracking-[0.1em] mt-2 leading-snug">
                 {stat.label}
               </p>
             </motion.div>
@@ -141,7 +141,7 @@ export default function HighlightsSection() {
 
         {/* Sponsor marquee */}
         <div>
-          <p className="text-center font-mono text-[10px] uppercase tracking-[0.25em] text-sand/40 mb-6">
+          <p className="text-center font-mono text-[10px] uppercase tracking-[0.25em] text-spidey-white/40 mb-6">
             Community & Sponsor Partners
           </p>
           <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
@@ -149,7 +149,7 @@ export default function HighlightsSection() {
               {[...PARTNERS, ...PARTNERS].map((name, i) => (
                 <span
                   key={i}
-                  className="font-display font-bold text-lg sm:text-xl text-sand/25 whitespace-nowrap hover:text-emerald/70 transition-colors"
+                  className="font-display font-bold text-lg sm:text-xl text-spidey-white/25 whitespace-nowrap hover:text-spidey-cyan/70 transition-colors"
                 >
                   {name}
                 </span>

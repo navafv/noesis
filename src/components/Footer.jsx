@@ -33,7 +33,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="relative border-t border-sand/10 px-4 pt-16 pb-8 overflow-hidden"
+      className="relative border-t border-spidey-white/10 px-4 pt-16 pb-8 overflow-hidden"
     >
       <div
         className="absolute inset-0 -z-10 grid-overlay opacity-10"
@@ -45,21 +45,25 @@ export default function Footer() {
           {/* Branding */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-cyprus border border-emerald/30 flex items-center justify-center">
-                <span className="font-mono font-bold text-emerald text-sm">
-                  <img src="logo.png" alt="Noesis Logo" />
+              <div className="relative w-10 h-10 rounded-lg bg-spidey-blue border-2 border-spidey-red flex items-center justify-center overflow-hidden">
+                <span className="font-mono font-black text-spidey-red text-sm tracking-tighter">
+                  N26
                 </span>
+                <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-spidey-cyan/70" />
+                <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-spidey-cyan/70" />
+                <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-spidey-cyan/70" />
+                <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-spidey-cyan/70" />
               </div>
               <div>
-                <p className="font-bold text-sand text-base">
-                  Noesis <span className="text-emerald">'26</span>
+                <p className="font-bold text-spidey-white text-base">
+                  Noesis <span className="text-spidey-cyan">'26</span>
                 </p>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-sand/50 font-mono">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-spidey-white/50 font-mono">
                   by Neura IT Club
                 </p>
               </div>
             </div>
-            <p className="text-sand/55 text-sm leading-relaxed max-w-sm mb-4">
+            <p className="text-spidey-white/55 text-sm leading-relaxed max-w-sm mb-4">
               A National-Level Inter-College IT Fest hosted by the Neura IT
               Club, Department of Computer Science, Jamia Hamdard Kannur Campus.
               Where Curiosity Becomes Innovation.
@@ -68,7 +72,7 @@ export default function Footer() {
               href="https://maps.google.com/?q=Jamia+Hamdard+Kannur+Campus"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald hover:gap-2.5 transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-spidey-cyan hover:gap-2.5 transition-all"
             >
               <MapPin size={13} />
               View Campus on Map
@@ -78,7 +82,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sand/40 mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-spidey-white/40 mb-4">
               Quick Links
             </p>
             <ul className="space-y-2.5">
@@ -86,7 +90,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-sand/65 hover:text-emerald transition-colors"
+                    className="text-sm text-spidey-white/65 hover:text-spidey-cyan transition-colors"
                   >
                     {link.label}
                   </a>
@@ -97,30 +101,30 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-sand/40 mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-spidey-white/40 mb-4">
               Contact
             </p>
             <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:noesisitfest@gmail.com"
-                  className="flex items-center gap-2 text-sm text-sand/65 hover:text-emerald transition-colors"
+                  className="flex items-center gap-2 text-sm text-spidey-white/65 hover:text-spidey-cyan transition-colors"
                 >
-                  <Mail size={14} className="text-emerald shrink-0" />
+                  <Mail size={14} className="text-spidey-cyan shrink-0" />
                   noesisitfest@gmail.com
                 </a>
               </li>
               <li>
                 <a
                   href="tel:+919995061050"
-                  className="flex items-center gap-2 text-sm text-sand/65 hover:text-emerald transition-colors"
+                  className="flex items-center gap-2 text-sm text-spidey-white/65 hover:text-spidey-cyan transition-colors"
                 >
-                  <Phone size={14} className="text-emerald shrink-0" />
+                  <Phone size={14} className="text-spidey-cyan shrink-0" />
                   +91 99950 61050
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-sand/65">
-                <MapPin size={14} className="text-emerald shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2 text-sm text-spidey-white/65">
+                <MapPin size={14} className="text-spidey-cyan shrink-0 mt-0.5" />
                 Jamia Hamdard Kannur Campus, Kannur City, Kerala 670003
               </li>
             </ul>
@@ -133,7 +137,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="w-9 h-9 rounded-lg border border-sand/15 flex items-center justify-center text-sand/60 hover:text-emerald hover:border-emerald/40 transition-colors"
+                  className="w-9 h-9 rounded-lg border border-spidey-white/15 flex items-center justify-center text-spidey-white/60 hover:text-spidey-cyan hover:border-spidey-cyan/40 transition-colors"
                 >
                   <s.icon size={16} />
                 </a>
@@ -142,7 +146,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-sand/10 text-xs text-sand/40 font-mono">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-spidey-white/10 text-xs text-spidey-white/40 font-mono">
           <p>
             © 2026 Neura IT Club, Jamia Hamdard Kannur Campus. All rights
             reserved.

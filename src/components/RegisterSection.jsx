@@ -133,7 +133,7 @@ export default function RegisterSection() {
       particleCount: 140,
       spread: 100,
       origin: { y: 0.5 },
-      colors: ["#00F5D4", "#004741", "#F0EDE4"],
+      colors: ["#00d2ff", "#e51b23", "#f4f6fb"],
     });
   };
 
@@ -151,7 +151,7 @@ export default function RegisterSection() {
       className="relative py-24 sm:py-32 px-4 overflow-hidden"
     >
       <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] -z-10 rounded-full blur-[140px] opacity-15 bg-emerald"
+        className="absolute top-0 right-0 w-[500px] h-[500px] -z-10 rounded-full blur-[140px] opacity-15 bg-spidey-cyan"
         aria-hidden
       />
 
@@ -163,10 +163,10 @@ export default function RegisterSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-emerald mb-3">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-spidey-cyan mb-3">
             Claim Your Spot
           </p>
-          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-sand tracking-tight">
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-spidey-white tracking-tight">
             Register
           </h2>
         </motion.div>
@@ -187,7 +187,7 @@ export default function RegisterSection() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onSubmit={handleSubmit}
-              className="rounded-brutal border border-sand/10 bg-surface/90 md:bg-surface/50 md:backdrop-blur-sm p-5 sm:p-8 space-y-10"
+              className="rounded-brutal border border-spidey-white/10 bg-spidey-surface/90 md:bg-spidey-surface/50 md:backdrop-blur-sm p-5 sm:p-8 space-y-10"
             >
               {/* Personal Details */}
               <FormGroup title="Personal Details">
@@ -301,7 +301,7 @@ export default function RegisterSection() {
               {/* Event Selection */}
               <FormGroup title="Event Selection">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-mono uppercase tracking-[0.12em] text-sand/50 mb-2">
+                  <label className="block text-xs font-mono uppercase tracking-[0.12em] text-spidey-white/50 mb-2">
                     Choose Your Event
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -314,8 +314,8 @@ export default function RegisterSection() {
                           onClick={() => update("eventId", ev.id)}
                           className={`px-3.5 py-2 rounded-full text-xs font-mono font-medium border transition-colors ${
                             isActive
-                              ? "bg-emerald text-cyprus border-emerald"
-                              : "border-sand/15 text-sand/70 hover:border-emerald/40"
+                              ? "bg-spidey-cyan text-spidey-red border-spidey-cyan"
+                              : "border-spidey-white/15 text-spidey-white/70 hover:border-spidey-cyan/40"
                           }`}
                         >
                           {ev.title}
@@ -335,8 +335,8 @@ export default function RegisterSection() {
                       exit={{ opacity: 0, height: 0 }}
                       className="sm:col-span-2 space-y-3 overflow-hidden"
                     >
-                      <p className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.12em] text-sand/50">
-                        <Users size={13} className="text-emerald" />
+                      <p className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.12em] text-spidey-white/50">
+                        <Users size={13} className="text-spidey-cyan" />
                         Team Members ({teamSize} total — 1 registrant +{" "}
                         {teamSize - 1} more)
                       </p>
@@ -365,14 +365,18 @@ export default function RegisterSection() {
               {/* Payment */}
               <FormGroup title="Payment / UPI Confirmation">
                 <div className="sm:col-span-2 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
-                  <div className="shrink-0 flex flex-col items-center gap-3 rounded-brutal border border-emerald/25 bg-cyprus/40 p-5">
-                    <div className="w-36 h-36 bg-sand rounded-lg flex items-center justify-center">
-                      <QrCode size={100} className="text-cyprus" />
+                  <div className="shrink-0 flex flex-col items-center gap-3 rounded-brutal border border-spidey-cyan/25 bg-spidey-red/40 p-5">
+                    <div className="relative w-36 h-36 bg-spidey-white rounded-lg flex items-center justify-center">
+                      <QrCode size={100} className="text-spidey-red" />
+                      <span className="absolute top-1 left-1 w-3 h-3 border-t-2 border-l-2 border-spidey-red/60" />
+                      <span className="absolute top-1 right-1 w-3 h-3 border-t-2 border-r-2 border-spidey-red/60" />
+                      <span className="absolute bottom-1 left-1 w-3 h-3 border-b-2 border-l-2 border-spidey-red/60" />
+                      <span className="absolute bottom-1 right-1 w-3 h-3 border-b-2 border-r-2 border-spidey-red/60" />
                     </div>
-                    <p className="font-mono text-xs text-emerald text-center break-all">
+                    <p className="font-mono text-xs text-spidey-cyan text-center break-all">
                       noesisitfest@okhdfcbank
                     </p>
-                    <p className="text-[10px] text-sand/50 text-center">
+                    <p className="text-[10px] text-spidey-white/50 text-center">
                       Scan & pay registration fee
                     </p>
                   </div>
@@ -390,7 +394,7 @@ export default function RegisterSection() {
                         placeholder="e.g. 302516789432"
                       />
                     </Field>
-                    <p className="text-xs text-sand/50 leading-relaxed">
+                    <p className="text-xs text-spidey-white/50 leading-relaxed">
                       Pay the applicable event fee via any UPI app, then enter
                       the transaction reference number above. Your registration
                       is confirmed once payment is verified — you'll receive a
@@ -403,7 +407,7 @@ export default function RegisterSection() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="w-full flex items-center justify-center gap-2 rounded-full bg-emerald text-cyprus-void font-bold text-sm px-6 py-4 hover:scale-[1.01] active:scale-95 transition-transform disabled:opacity-70 disabled:cursor-not-allowed animate-pulse-glow"
+                className="w-full flex items-center justify-center gap-2 rounded-full bg-spidey-cyan text-spidey-canvas font-bold text-sm px-6 py-4 hover:scale-[1.01] active:scale-95 transition-transform disabled:opacity-70 disabled:cursor-not-allowed animate-pulse-glow"
               >
                 {status === "submitting" ? (
                   <>
@@ -428,7 +432,7 @@ export default function RegisterSection() {
 function FormGroup({ title, children }) {
   return (
     <div>
-      <h3 className="font-display font-bold text-sand text-base mb-5 pb-3 border-b border-sand/10">
+      <h3 className="font-display font-bold text-spidey-white text-base mb-5 pb-3 border-b border-spidey-white/10">
         {title}
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">{children}</div>
@@ -439,8 +443,8 @@ function FormGroup({ title, children }) {
 function Field({ icon: Icon, label, error, children }) {
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-sand/50 mb-2">
-        <Icon size={13} className="text-emerald" />
+      <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-spidey-white/50 mb-2">
+        <Icon size={13} className="text-spidey-cyan" />
         {label}
       </label>
       {children}
@@ -459,9 +463,9 @@ function ErrorText({ children }) {
 }
 
 function inputClass(error) {
-  return `w-full rounded-lg bg-canvas/60 border ${
-    error ? "border-red-400/60" : "border-sand/15"
-  } text-sand text-sm px-4 py-3 outline-none focus:border-emerald/60 transition-colors placeholder:text-sand/30`;
+  return `w-full rounded-lg bg-spidey-blue/60 border ${
+    error ? "border-red-400/60" : "border-spidey-white/15"
+  } text-spidey-white text-sm px-4 py-3 outline-none focus:border-spidey-red focus:shadow-[0_0_0_1px_rgba(229,27,35,0.4),0_0_16px_rgba(229,27,35,0.25)] transition-colors placeholder:text-spidey-white/30`;
 }
 
 function SuccessBadge({ form, event, onReset, badgeRef }) {
@@ -475,46 +479,52 @@ function SuccessBadge({ form, event, onReset, badgeRef }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="rounded-brutal border border-emerald/40 bg-surface/90 md:bg-surface/60 md:backdrop-blur-sm p-6 sm:p-10 text-center"
+      className="rounded-brutal border border-spidey-cyan/40 bg-spidey-surface/90 md:bg-spidey-surface/60 md:backdrop-blur-sm p-6 sm:p-10 text-center"
     >
-      <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald flex items-center justify-center">
-        <CheckCircle2 size={30} className="text-cyprus" />
+      <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-spidey-cyan flex items-center justify-center">
+        <CheckCircle2 size={30} className="text-spidey-red" />
       </div>
-      <h3 className="font-display font-black text-2xl sm:text-3xl text-sand mb-2">
+      <h3 className="font-display font-black text-2xl sm:text-3xl text-spidey-white mb-2">
         You're In! 🎉
       </h3>
-      <p className="text-sand/60 text-sm mb-8 max-w-md mx-auto">
+      <p className="text-spidey-white/60 text-sm mb-8 max-w-md mx-auto">
         Your registration for{" "}
-        <span className="text-emerald font-semibold">{event?.title}</span> has
+        <span className="text-spidey-cyan font-semibold">{event?.title}</span> has
         been received. A confirmation email is on its way to {form.email}.
       </p>
 
-      {/* Badge preview */}
+      {/* Badge preview — Spider-Verse framed participant badge */}
       <div
         ref={badgeRef}
-        className="max-w-sm mx-auto rounded-brutal border border-emerald/30 bg-gradient-to-br from-cyprus to-canvas p-6 text-left relative overflow-hidden"
+        className="max-w-sm mx-auto rounded-brutal border border-spidey-cyan/30 bg-gradient-to-br from-spidey-red to-spidey-blue p-6 text-left relative overflow-hidden"
       >
         <div className="absolute inset-0 grid-overlay opacity-10" />
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald mb-1 relative">
+        <div className="absolute inset-0 comic-halftone opacity-[0.12]" />
+        {/* Web-corner frame accents */}
+        <span className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-spidey-cyan/70" />
+        <span className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-spidey-cyan/70" />
+        <span className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-spidey-cyan/70" />
+        <span className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-spidey-cyan/70" />
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-spidey-cyan mb-1 relative">
           Official Participant Badge
         </p>
-        <h4 className="font-display font-black text-xl text-sand mb-4 relative">
-          Noesis '26
+        <h4 className="font-display font-black text-xl text-spidey-white mb-4 relative">
+          Noesis'26
         </h4>
         <div className="space-y-1.5 relative">
-          <p className="text-sand text-sm font-semibold">
+          <p className="text-spidey-white text-sm font-semibold">
             {form.fullName || "Participant Name"}
           </p>
-          <p className="text-sand/60 text-xs">
+          <p className="text-spidey-white/60 text-xs">
             {form.college || "College Name"}
           </p>
-          <p className="text-sand/60 text-xs">{event?.title}</p>
+          <p className="text-spidey-white/60 text-xs">{event?.title}</p>
         </div>
-        <div className="mt-5 pt-4 border-t border-sand/10 flex items-center justify-between relative">
-          <span className="text-[9px] font-mono text-sand/40">
+        <div className="mt-5 pt-4 border-t border-spidey-white/10 flex items-center justify-between relative">
+          <span className="text-[9px] font-mono text-spidey-white/40">
             Sept 30 – Oct 01, 2026
           </span>
-          <span className="text-[9px] font-mono text-sand/40">
+          <span className="text-[9px] font-mono text-spidey-white/40">
             Jamia Hamdard, Kannur
           </span>
         </div>
@@ -523,14 +533,14 @@ function SuccessBadge({ form, event, onReset, badgeRef }) {
       <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
         <button
           onClick={handleDownload}
-          className="flex items-center justify-center gap-2 rounded-full bg-emerald text-cyprus-void font-bold text-sm px-6 py-3"
+          className="flex items-center justify-center gap-2 rounded-full bg-spidey-cyan text-spidey-canvas font-bold text-sm px-6 py-3"
         >
           <Download size={16} />
           Download Badge
         </button>
         <button
           onClick={onReset}
-          className="flex items-center justify-center gap-2 rounded-full border border-sand/20 text-sand font-semibold text-sm px-6 py-3 hover:border-emerald/40 transition-colors"
+          className="flex items-center justify-center gap-2 rounded-full border border-spidey-white/20 text-spidey-white font-semibold text-sm px-6 py-3 hover:border-spidey-cyan/40 transition-colors"
         >
           Register Another
         </button>

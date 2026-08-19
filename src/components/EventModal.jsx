@@ -42,7 +42,7 @@ export default function EventModal({ event, onClose }) {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-canvas/92 md:bg-canvas/80 md:backdrop-blur-md"
+            className="absolute inset-0 bg-spidey-blue/92 md:bg-spidey-blue/80 md:backdrop-blur-md"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -58,21 +58,21 @@ export default function EventModal({ event, onClose }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
-            className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-cyprus border border-sand/12 md:glass border-glow rounded-2xl"
+            className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-spidey-red border border-spidey-white/12 md:glass border-glow rounded-2xl"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 sm:px-8 pt-6 pb-5 bg-surface/98 md:bg-surface/90 md:backdrop-blur-md border-b border-sand/10">
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 px-6 sm:px-8 pt-6 pb-5 bg-spidey-surface/98 md:bg-spidey-surface/90 md:backdrop-blur-md border-b border-spidey-white/10">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 shrink-0 rounded-xl bg-cyprus border border-emerald/30 flex items-center justify-center">
-                  <event.icon size={22} className="text-emerald" />
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-spidey-red border border-spidey-cyan/30 flex items-center justify-center">
+                  <event.icon size={22} className="text-spidey-cyan" />
                 </div>
                 <div>
-                  <span className="inline-block text-[10px] font-mono uppercase tracking-[0.15em] text-emerald mb-1">
+                  <span className="inline-block text-[10px] font-mono uppercase tracking-[0.15em] text-spidey-cyan mb-1">
                     {event.tag}
                   </span>
                   <h3
                     id="event-modal-title"
-                    className="font-display font-bold text-xl sm:text-2xl text-sand leading-tight"
+                    className="font-display font-bold text-xl sm:text-2xl text-spidey-white leading-tight"
                   >
                     {event.title}
                   </h3>
@@ -81,7 +81,7 @@ export default function EventModal({ event, onClose }) {
               <button
                 onClick={onClose}
                 aria-label="Close event details"
-                className="shrink-0 p-2 rounded-lg border border-sand/15 text-sand/70 hover:text-sand hover:border-emerald/40 transition-colors"
+                className="shrink-0 p-2 rounded-lg border border-spidey-white/15 text-spidey-white/70 hover:text-spidey-white hover:border-spidey-cyan/40 transition-colors"
               >
                 <X size={18} />
               </button>
@@ -108,7 +108,7 @@ export default function EventModal({ event, onClose }) {
               {/* Description */}
               <div>
                 <SectionLabel>Overview</SectionLabel>
-                <p className="text-sand/75 text-sm leading-relaxed mt-2">
+                <p className="text-spidey-white/75 text-sm leading-relaxed mt-2">
                   {event.longDescription}
                 </p>
               </div>
@@ -120,11 +120,11 @@ export default function EventModal({ event, onClose }) {
                   {event.guidelines.map((g, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2.5 text-sm text-sand/75 leading-relaxed"
+                      className="flex items-start gap-2.5 text-sm text-spidey-white/75 leading-relaxed"
                     >
                       <CheckCircle2
                         size={15}
-                        className="text-emerald mt-0.5 shrink-0"
+                        className="text-spidey-cyan mt-0.5 shrink-0"
                       />
                       {g}
                     </li>
@@ -139,7 +139,7 @@ export default function EventModal({ event, onClose }) {
                   {event.judgingCriteria.map((c, i) => (
                     <span
                       key={i}
-                      className="text-xs font-mono text-sand/70 border border-sand/15 rounded-full px-3 py-1.5"
+                      className="text-xs font-mono text-spidey-white/70 border border-spidey-white/15 rounded-full px-3 py-1.5"
                     >
                       {c}
                     </span>
@@ -153,16 +153,16 @@ export default function EventModal({ event, onClose }) {
                 <div className="mt-2 flex flex-col sm:flex-row gap-3">
                   <a
                     href={`tel:${event.coordinator.phone.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 text-sm text-sand/75 hover:text-emerald transition-colors"
+                    className="flex items-center gap-2 text-sm text-spidey-white/75 hover:text-spidey-cyan transition-colors"
                   >
-                    <Phone size={14} className="text-emerald" />
+                    <Phone size={14} className="text-spidey-cyan" />
                     {event.coordinator.phone}
                   </a>
                   <a
                     href={`mailto:${event.coordinator.email}`}
-                    className="flex items-center gap-2 text-sm text-sand/75 hover:text-emerald transition-colors"
+                    className="flex items-center gap-2 text-sm text-spidey-white/75 hover:text-spidey-cyan transition-colors"
                   >
-                    <Mail size={14} className="text-emerald" />
+                    <Mail size={14} className="text-spidey-cyan" />
                     {event.coordinator.email}
                   </a>
                 </div>
@@ -170,12 +170,12 @@ export default function EventModal({ event, onClose }) {
             </div>
 
             {/* Footer CTA */}
-            <div className="sticky bottom-0 px-6 sm:px-8 py-5 bg-surface/98 md:bg-surface/90 md:backdrop-blur-md border-t border-sand/10">
+            <div className="sticky bottom-0 px-6 sm:px-8 py-5 bg-spidey-surface/98 md:bg-spidey-surface/90 md:backdrop-blur-md border-t border-spidey-white/10">
               <a
                 href={`#register?event=${event.id}`}
                 onClick={onClose}
                 data-cursor="interactive"
-                className="liquid-shine group flex items-center justify-center gap-2 w-full rounded-full bg-emerald text-cyprus-void font-bold text-sm px-6 py-3.5 hover:scale-[1.02] active:scale-95 transition-transform animate-pulse-glow"
+                className="liquid-shine group flex items-center justify-center gap-2 w-full rounded-full bg-spidey-cyan text-spidey-canvas font-bold text-sm px-6 py-3.5 hover:scale-[1.02] active:scale-95 transition-transform animate-pulse-glow"
               >
                 Register for {event.title}
                 <ArrowUpRight
@@ -192,20 +192,20 @@ export default function EventModal({ event, onClose }) {
 }
 
 const SectionLabel = ({ children }) => (
-  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-sand/40">
+  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-spidey-white/40">
     {children}
   </p>
 );
 
 const MetaChip = ({ icon: Icon, label, value }) => (
-  <div className="rounded-xl border border-sand/10 bg-sand/[0.03] px-3 py-2.5">
-    <div className="flex items-center gap-1.5 text-sand/40 mb-1">
+  <div className="rounded-xl border border-spidey-white/10 bg-spidey-white/[0.03] px-3 py-2.5">
+    <div className="flex items-center gap-1.5 text-spidey-white/40 mb-1">
       <Icon size={12} />
       <span className="text-[9px] font-mono uppercase tracking-[0.12em]">
         {label}
       </span>
     </div>
-    <p className="text-sand text-xs sm:text-sm font-semibold leading-tight">
+    <p className="text-spidey-white text-xs sm:text-sm font-semibold leading-tight">
       {value}
     </p>
   </div>

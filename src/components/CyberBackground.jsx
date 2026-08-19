@@ -19,10 +19,11 @@ const isLowPowerDevice = () =>
 
 /**
  * CyberBackground renders a single fixed full-viewport layer shared by every
- * section: a canvas-based constellation of drifting motes that mildly repel
- * from the cursor, a CSS perspective horizon grid, and slow-breathing Cyprus
- * ambient glow nodes that parallax gently with scroll. It sits behind all
- * content (z-index -50) and never intercepts pointer events.
+ * section: a canvas-based web of drifting motes that mildly repel from the
+ * cursor and spin out glowing "web thread" strands to nearby points and to
+ * the pointer itself, a CSS perspective horizon grid, and slow-breathing
+ * crimson/cobalt ambient glow orbs that parallax gently with scroll. It sits
+ * behind all content (z-index -50) and never intercepts pointer events.
  */
 export default function CyberBackground() {
   const canvasRef = useRef(null);
@@ -80,7 +81,7 @@ export default function CyberBackground() {
         vx: (Math.random() - 0.5) * 0.12,
         vy: (Math.random() - 0.5) * 0.12,
         r: Math.random() * 1.6 + 0.6,
-        hue: Math.random() > 0.65 ? "sand" : "emerald",
+        hue: Math.random() > 0.65 ? "white" : "cyan",
         twinkle: Math.random() * Math.PI * 2,
       }));
     };
@@ -119,8 +120,8 @@ export default function CyberBackground() {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      const sandColor = "240, 237, 228";
-      const emeraldColor = "0, 245, 212";
+      const whiteColor = "244, 246, 251";
+      const cyanColor = "0, 210, 255";
 
       for (const p of particles.current) {
         // Gentle magnetic repulsion from cursor
@@ -145,7 +146,7 @@ export default function CyberBackground() {
         if (p.y > height + 10) p.y = -10;
 
         const alpha = 0.25 + Math.sin(p.twinkle) * 0.2;
-        const color = p.hue === "sand" ? sandColor : emeraldColor;
+        const color = p.hue === "white" ? whiteColor : cyanColor;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -153,7 +154,7 @@ export default function CyberBackground() {
         ctx.fill();
       }
 
-      // Faint constellation lines between nearby motes
+      // Faint web-thread lines between nearby motes
       ctx.lineWidth = 0.6;
       for (let i = 0; i < particles.current.length; i++) {
         for (let j = i + 1; j < particles.current.length; j++) {
@@ -161,10 +162,27 @@ export default function CyberBackground() {
           const b = particles.current[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < 110) {
-            ctx.strokeStyle = `rgba(0, 245, 212, ${0.08 * (1 - d / 110)})`;
+            ctx.strokeStyle = `rgba(0, 210, 255, ${0.08 * (1 - d / 110)})`;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Web threads snapping outward from the cursor to nearby motes —
+      // a crimson strand whenever the pointer is active on screen.
+      if (mouse.current.x > -999) {
+        ctx.lineWidth = 0.9;
+        for (const p of particles.current) {
+          const d = Math.hypot(p.x - mouse.current.x, p.y - mouse.current.y);
+          if (d < REPEL_RADIUS * 1.4) {
+            const t = 1 - d / (REPEL_RADIUS * 1.4);
+            ctx.strokeStyle = `rgba(229, 27, 35, ${0.35 * t})`;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.current.x, mouse.current.y);
             ctx.stroke();
           }
         }
@@ -193,10 +211,10 @@ export default function CyberBackground() {
     // rAF, no listeners, no blurred glow orbs, no animated scanline.
     return (
       <div
-        className="fixed inset-0 -z-50 overflow-hidden bg-canvas pointer-events-none"
+        className="fixed inset-0 -z-50 overflow-hidden bg-spidey-blue pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-cyprus-void via-canvas to-cyprus-void" />
+        <div className="absolute inset-0 bg-gradient-to-b from-spidey-canvas via-spidey-blue to-spidey-canvas" />
         <div className="absolute inset-0 radial-mesh opacity-60" />
         <div className="absolute inset-0 grid-overlay opacity-[0.05]" />
       </div>
@@ -205,20 +223,20 @@ export default function CyberBackground() {
 
   return (
     <div
-      className="fixed inset-0 -z-50 overflow-hidden bg-canvas pointer-events-none"
+      className="fixed inset-0 -z-50 overflow-hidden bg-spidey-blue pointer-events-none"
       aria-hidden="true"
     >
       {/* Deep base wash */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cyprus-void via-canvas to-cyprus-void" />
+      <div className="absolute inset-0 bg-gradient-to-b from-spidey-canvas via-spidey-blue to-spidey-canvas" />
 
       {/* Breathing Cyprus ambient glow nodes, parallax on scroll */}
       <div
         ref={glowLayerRef}
         className="absolute inset-0 will-change-transform"
       >
-        <div className="absolute top-[6%] left-[8%] w-[36rem] h-[36rem] rounded-full bg-cyprus/40 blur-[140px] animate-orb-drift" />
-        <div className="absolute top-[40%] right-[6%] w-[30rem] h-[30rem] rounded-full bg-cyprus-mid/50 blur-[130px] animate-orb-drift-rev" />
-        <div className="absolute bottom-[4%] left-[30%] w-[34rem] h-[34rem] rounded-full bg-emerald/[0.07] blur-[150px] animate-mesh-drift" />
+        <div className="absolute top-[6%] left-[8%] w-[36rem] h-[36rem] rounded-full bg-spidey-red/40 blur-[140px] animate-orb-drift" />
+        <div className="absolute top-[40%] right-[6%] w-[30rem] h-[30rem] rounded-full bg-spidey-surface/50 blur-[130px] animate-orb-drift-rev" />
+        <div className="absolute bottom-[4%] left-[30%] w-[34rem] h-[34rem] rounded-full bg-spidey-cyan/[0.07] blur-[150px] animate-mesh-drift" />
       </div>
 
       {/* Perspective cyber horizon grid, tiled the full page height */}

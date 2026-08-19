@@ -16,10 +16,10 @@ export default function FaqSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-emerald mb-3">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-spidey-cyan mb-3">
             Got Questions?
           </p>
-          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-sand tracking-tight">
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-spidey-white tracking-tight">
             FAQs
           </h2>
         </motion.div>
@@ -36,8 +36,8 @@ export default function FaqSection() {
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className={`rounded-brutal border overflow-hidden transition-colors ${
                   isOpen
-                    ? "border-emerald/40 bg-surface/60"
-                    : "border-sand/10 bg-surface/30"
+                    ? "border-spidey-cyan/40 bg-spidey-surface/60"
+                    : "border-spidey-white/10 bg-spidey-surface/30"
                 }`}
               >
                 <button
@@ -45,7 +45,7 @@ export default function FaqSection() {
                   aria-expanded={isOpen}
                   className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-5 text-left"
                 >
-                  <span className="font-display font-semibold text-sand text-sm sm:text-base leading-snug">
+                  <span className="font-display font-semibold text-spidey-white text-sm sm:text-base leading-snug">
                     {faq.question}
                   </span>
                   <motion.span
@@ -53,8 +53,8 @@ export default function FaqSection() {
                     transition={{ duration: 0.25 }}
                     className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center border ${
                       isOpen
-                        ? "bg-emerald border-emerald text-cyprus"
-                        : "border-sand/20 text-sand/60"
+                        ? "bg-spidey-cyan border-spidey-cyan text-spidey-red"
+                        : "border-spidey-white/20 text-spidey-white/60"
                     }`}
                   >
                     <Plus size={16} />
@@ -70,7 +70,7 @@ export default function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <p className="px-5 sm:px-6 pb-5 text-sand/65 text-sm leading-relaxed">
+                      <p className="px-5 sm:px-6 pb-5 text-spidey-white/65 text-sm leading-relaxed">
                         {faq.answer}
                       </p>
                     </motion.div>

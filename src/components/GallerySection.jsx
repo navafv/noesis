@@ -29,10 +29,10 @@ const GALLERY_ITEMS = [
 ];
 
 const GRADIENTS = [
-  "from-cyprus via-cyprus-light to-canvas",
-  "from-emerald/40 via-cyprus to-canvas",
-  "from-cyprus-light via-surface to-canvas",
-  "from-emerald/30 via-surface to-cyprus",
+  "from-spidey-red via-spidey-red-light to-spidey-blue",
+  "from-spidey-cyan/40 via-spidey-red to-spidey-blue",
+  "from-spidey-red-light via-spidey-surface to-spidey-blue",
+  "from-spidey-cyan/30 via-spidey-surface to-spidey-red",
 ];
 
 export default function GallerySection() {
@@ -51,10 +51,10 @@ export default function GallerySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-emerald mb-3">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-spidey-cyan mb-3">
             Relive the Energy
           </p>
-          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-sand tracking-tight">
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-spidey-white tracking-tight">
             Gallery
           </h2>
         </motion.div>
@@ -68,26 +68,26 @@ export default function GallerySection() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
               onClick={() => setActive(item)}
-              className={`group relative rounded-brutal overflow-hidden cursor-pointer border border-sand/10 hover:border-emerald/50 transition-colors ${item.span}`}
+              className={`group relative rounded-brutal overflow-hidden cursor-pointer border border-spidey-white/10 hover:border-spidey-cyan/50 transition-colors ${item.span}`}
             >
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]} opacity-80 group-hover:scale-110 transition-transform duration-500`}
               />
               <div className="absolute inset-0 grid-overlay opacity-20" />
-              <div className="absolute inset-0 bg-gradient-to-t from-canvas/90 via-canvas/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-spidey-blue/90 via-spidey-blue/10 to-transparent" />
 
               {/* Neon glow ring on hover */}
-              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[inset_0_0_0_2px_rgba(0,245,212,0.5)] rounded-brutal" />
+              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[inset_0_0_0_2px_rgba(0, 210, 255,0.5)] rounded-brutal" />
 
               <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Expand size={16} className="text-sand" />
+                <Expand size={16} className="text-spidey-white" />
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
-                <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-emerald block mb-1">
+                <span className="text-[9px] font-mono uppercase tracking-[0.14em] text-spidey-cyan block mb-1">
                   {item.tag}
                 </span>
-                <p className="text-sand text-xs sm:text-sm font-semibold leading-snug">
+                <p className="text-spidey-white text-xs sm:text-sm font-semibold leading-snug">
                   {item.caption}
                 </p>
               </div>
@@ -103,20 +103,20 @@ export default function GallerySection() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setActive(null)}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-canvas/90 backdrop-blur-md px-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-spidey-blue/90 backdrop-blur-md px-6"
         >
           <motion.div
             initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="relative w-full max-w-2xl aspect-video rounded-brutal overflow-hidden border border-emerald/30"
+            className="relative w-full max-w-2xl aspect-video rounded-brutal overflow-hidden border border-spidey-cyan/30"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyprus via-cyprus-light to-canvas" />
+            <div className="absolute inset-0 bg-gradient-to-br from-spidey-red via-spidey-red-light to-spidey-blue" />
             <div className="absolute inset-0 grid-overlay opacity-20" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-canvas/95 to-transparent">
-              <span className="text-xs font-mono uppercase tracking-[0.14em] text-emerald block mb-1">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-spidey-blue/95 to-transparent">
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-spidey-cyan block mb-1">
                 {active.tag}
               </span>
-              <p className="text-sand text-lg font-bold">{active.caption}</p>
+              <p className="text-spidey-white text-lg font-bold">{active.caption}</p>
             </div>
           </motion.div>
         </motion.div>

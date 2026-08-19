@@ -1,9 +1,9 @@
 export const FAQS = [
   {
     id: "eligibility",
-    question: "Who is eligible to participate in Noesis '26?",
+    question: "Who is eligible to participate in Noesis'26?",
     answer:
-      "Noesis '26 is open to all currently enrolled undergraduate and postgraduate students from any recognized college or university across India. Both individual and team-based events accept participants from mixed colleges unless an event explicitly requires a single-college team.",
+      "Noesis'26 is open to all currently enrolled undergraduate and postgraduate students from any recognized college or university across India. Both individual and team-based events accept participants from mixed colleges unless an event explicitly requires a single-college team.",
   },
   {
     id: "registration-mode",

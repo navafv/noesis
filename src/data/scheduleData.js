@@ -1,5 +1,5 @@
 /**
- * Two-day chronological schedule for Noesis '26.
+ * Two-day chronological schedule for Noesis'26.
  * `linkedEventId` (when present) maps a timeline entry back to
  * eventsData.js so the ScheduleSection can deep-link into EventModal.
  */

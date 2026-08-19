@@ -1,17 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors — Cyber-Brutalist / Deep Cyprus */
-  --color-cyprus: #004741;
-  --color-cyprus-light: #0aa89b;
-  --color-cyprus-deep: #01201d;
-  --color-cyprus-void: #001715;
-  --color-cyprus-mid: #022e2a;
-  --color-sand: #f0ede4;
-  --color-emerald: #00f5d4;
-  --color-emerald-dim: #05d3b3;
-  --color-canvas: #01201d;
-  --color-surface: #022e2a;
+  /* Brand Colors — Spider-Verse Tech & Comic-Brutalist */
+  --color-spidey-canvas: #050e1a;
+  --color-spidey-blue: #0b1f3a;
+  --color-spidey-surface: #13345d;
+  --color-spidey-red: #e51b23;
+  --color-spidey-red-light: #ff4b52;
+  --color-spidey-cyan: #00d2ff;
+  --color-spidey-cyan-dim: #00a8cc;
+  --color-spidey-white: #f4f6fb;
+  --color-spidey-muted: #94a3b8;
 
   /* Fonts */
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -41,10 +40,10 @@
 
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.45), 0 0 20px 2px rgba(0, 245, 212, 0.25);
+      box-shadow: 0 0 0 0 rgba(229, 27, 35, 0.45), 0 0 20px 2px rgba(229, 27, 35, 0.25);
     }
     50% {
-      box-shadow: 0 0 0 8px rgba(0, 245, 212, 0), 0 0 32px 6px rgba(0, 245, 212, 0.4);
+      box-shadow: 0 0 0 8px rgba(229, 27, 35, 0), 0 0 32px 6px rgba(229, 27, 35, 0.4);
     }
   }
 
@@ -102,7 +101,7 @@ html {
 
 body {
   font-family: var(--font-display);
-  background-color: var(--color-canvas);
+  background-color: var(--color-spidey-blue);
   cursor: none;
 }
 
@@ -113,8 +112,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-emerald);
-  color: var(--color-cyprus-void);
+  background: var(--color-spidey-red);
+  color: var(--color-spidey-white);
 }
 
 /* Scrollbar */
@@ -122,14 +121,14 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-canvas);
+  background: var(--color-spidey-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-cyprus-light);
+  background: var(--color-spidey-surface);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-emerald);
+  background: var(--color-spidey-red);
 }
 
 /* Accessibility */
@@ -143,53 +142,65 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-emerald);
+  outline: 2px solid var(--color-spidey-cyan);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 /* Utility layer additions */
 @layer utilities {
-  .text-glow-emerald {
-    text-shadow: 0 0 20px rgba(0, 245, 212, 0.45), 0 0 44px rgba(0, 245, 212, 0.18);
+  .text-glow-red {
+    text-shadow: 0 0 20px rgba(229, 27, 35, 0.5), 0 0 44px rgba(229, 27, 35, 0.2);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 18px rgba(0, 210, 255, 0.45), 0 0 40px rgba(0, 210, 255, 0.2);
   }
 
   .text-glow-sand {
-    text-shadow: 0 0 18px rgba(240, 237, 228, 0.35), 0 0 36px rgba(240, 237, 228, 0.15);
+    text-shadow: 0 0 18px rgba(244, 246, 251, 0.35), 0 0 36px rgba(244, 246, 251, 0.15);
   }
 
   .border-glow {
-    box-shadow: 0 0 0 1px rgba(0, 245, 212, 0.15), 0 0 24px -4px rgba(0, 245, 212, 0.25);
+    box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.15), 0 0 24px -4px rgba(0, 210, 255, 0.25);
+  }
+
+  .border-glow-red {
+    box-shadow: 0 0 0 1px rgba(229, 27, 35, 0.35), 0 0 20px rgba(229, 27, 35, 0.45);
+  }
+
+  .border-glow-cyan {
+    box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.28), 0 0 20px rgba(0, 210, 255, 0.4);
   }
 
   .border-glow-sand {
-    box-shadow: 0 0 0 1px rgba(240, 237, 228, 0.14), 0 0 20px -6px rgba(240, 237, 228, 0.2);
+    box-shadow: 0 0 0 1px rgba(244, 246, 251, 0.14), 0 0 20px -6px rgba(244, 246, 251, 0.2);
   }
 
   .glass {
-    background: rgba(2, 46, 42, 0.55);
+    background: rgba(11, 31, 58, 0.55);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(240, 237, 228, 0.12);
+    border: 1px solid rgba(244, 246, 251, 0.12);
   }
 
   .radial-mesh {
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(0, 245, 212, 0.14), transparent 40%),
-      radial-gradient(circle at 80% 30%, rgba(10, 168, 155, 0.32), transparent 45%),
-      radial-gradient(circle at 50% 80%, rgba(0, 71, 65, 0.55), transparent 50%);
+      radial-gradient(circle at 20% 20%, rgba(0, 210, 255, 0.14), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(229, 27, 35, 0.22), transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(19, 52, 93, 0.65), transparent 50%);
   }
 
   .grid-overlay {
     background-image:
-      linear-gradient(rgba(240, 237, 228, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240, 237, 228, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(244, 246, 251, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 246, 251, 0.05) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   .noise-scan {
     background-image: repeating-linear-gradient(
-      0deg, rgba(0, 245, 212, 0.025) 0px, rgba(0, 245, 212, 0.025) 1px,
+      0deg, rgba(0, 210, 255, 0.025) 0px, rgba(0, 210, 255, 0.025) 1px,
       transparent 1px, transparent 3px
     );
   }
@@ -197,11 +208,25 @@ body {
   /* Perspective horizon grid used in the hero */
   .horizon-grid {
     background-image:
-      linear-gradient(rgba(0, 245, 212, 0.28) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 245, 212, 0.16) 1px, transparent 1px);
+      linear-gradient(rgba(0, 210, 255, 0.28) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 210, 255, 0.16) 1px, transparent 1px);
     background-size: 64px 64px;
     -webkit-mask-image: linear-gradient(to top, black, transparent 85%);
     mask-image: linear-gradient(to top, black, transparent 85%);
+  }
+
+  /* Dynamic luminous perspective grid — comic-tech "web" backdrop */
+  .spider-web-grid {
+    background-image:
+      linear-gradient(rgba(0, 210, 255, 0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(229, 27, 35, 0.12) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Comic-book halftone dot-matrix overlay */
+  .comic-halftone {
+    background-image: radial-gradient(rgba(244, 246, 251, 0.18) 1px, transparent 1.4px);
+    background-size: 6px 6px;
   }
 
   /* Holographic scanline sweep for section headings */
@@ -216,7 +241,7 @@ body {
     background: linear-gradient(
       100deg,
       transparent 40%,
-      rgba(0, 245, 212, 0.16) 50%,
+      rgba(0, 210, 255, 0.18) 50%,
       transparent 60%
     );
     background-size: 220% 100%;
@@ -238,20 +263,28 @@ body {
    Simplify/disable them under the 768px breakpoint. */
 @media (max-width: 767px) {
   .border-glow {
-    box-shadow: 0 0 0 1px rgba(0, 245, 212, 0.15);
+    box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.15);
+  }
+
+  .border-glow-red {
+    box-shadow: 0 0 0 1px rgba(229, 27, 35, 0.35);
+  }
+
+  .border-glow-cyan {
+    box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.28);
   }
 
   .border-glow-sand {
-    box-shadow: 0 0 0 1px rgba(240, 237, 228, 0.14);
+    box-shadow: 0 0 0 1px rgba(244, 246, 251, 0.14);
   }
 
   @keyframes pulse-glow {
     0%,
     100% {
-      box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.3);
+      box-shadow: 0 0 0 0 rgba(229, 27, 35, 0.3);
     }
     50% {
-      box-shadow: 0 0 0 4px rgba(0, 245, 212, 0.15);
+      box-shadow: 0 0 0 4px rgba(229, 27, 35, 0.15);
     }
   }
 

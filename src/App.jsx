@@ -8,6 +8,10 @@ import StudentTeamPage from "./pages/student/StudentTeamPage";
 import StudentSubmissionsPage from "./pages/student/StudentSubmissionsPage";
 import AdminLayout from "./layouts/AdminLayout";
 import PaymentVerificationPage from "./pages/admin/PaymentVerificationPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import LiveScoringPage from "./pages/admin/LiveScoringPage";
+import QrScannerPage from "./pages/admin/QrScannerPage";
+import SpotEntryPage from "./pages/admin/SpotEntryPage";
 import "./App.css";
 
 /* ------------------------------------------------------------------ */
@@ -119,36 +123,6 @@ function StudentCertificatesPage() {
 /*  under src/pages/admin/ as it's implemented.                        */
 /* ------------------------------------------------------------------ */
 
-function AdminPagePlaceholder({ title }) {
-  return (
-    <div className="max-w-3xl mx-auto flex flex-col items-center justify-center gap-3 py-24 text-center">
-      <p className="text-[10px] uppercase tracking-[0.2em] text-spidey-cyan font-mono">
-        Command Center
-      </p>
-      <h1 className="text-3xl font-bold text-spidey-white">{title}</h1>
-      <p className="text-spidey-white/50 font-mono text-sm">
-        // page under construction — coming soon
-      </p>
-    </div>
-  );
-}
-
-function AdminOverviewPage() {
-  return <AdminPagePlaceholder title="Overview" />;
-}
-
-function AdminScoringPage() {
-  return <AdminPagePlaceholder title="Scoring" />;
-}
-
-function AdminScannerPage() {
-  return <AdminPagePlaceholder title="QR Scanner" />;
-}
-
-function AdminSpotEntryPage() {
-  return <AdminPagePlaceholder title="Spot Entry" />;
-}
-
 /* ------------------------------------------------------------------ */
 /*  Router                                                             */
 /* ------------------------------------------------------------------ */
@@ -175,11 +149,11 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminOverviewPage />} />
+          <Route index element={<AdminDashboard />} />
           <Route path="payments" element={<PaymentVerificationPage />} />
-          <Route path="scoring" element={<AdminScoringPage />} />
-          <Route path="scanner" element={<AdminScannerPage />} />
-          <Route path="spot-entry" element={<AdminSpotEntryPage />} />
+          <Route path="scoring" element={<LiveScoringPage />} />
+          <Route path="scanner" element={<QrScannerPage />} />
+          <Route path="spot-entry" element={<SpotEntryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

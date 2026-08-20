@@ -167,12 +167,29 @@ html {
 body {
   font-family: var(--font-display);
   background-color: var(--color-spidey-blue);
-  cursor: none;
 }
 
-@media (hover: none), (pointer: coarse) {
-  body {
-    cursor: auto;
+/* ------------------------------------------------------------------ */
+/* Procedural Spider Crawler & Mouse Trap Engine                      */
+/* The crawler + web are rendered entirely on <canvas> in             */
+/* CustomCursor.jsx (fixed inset-0 pointer-events-none), positioned   */
+/* via Tailwind utility classes there. Nothing else to style here     */
+/* beyond making sure the canvases never intercept clicks/taps.       */
+/* ------------------------------------------------------------------ */
+
+.spider-scene-canvas,
+.spider-web-canvas {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spider-scene-canvas,
+  .spider-web-canvas {
+    /* Motion still respected inside the render loop itself (instant
+       snapping, no particles/oscillation) — this is a defensive
+       backstop in case any transition ever gets added here later. */
+    transition: none !important;
+    animation: none !important;
   }
 }
 

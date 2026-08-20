@@ -18,12 +18,22 @@ const supportsFinePointer = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
+// A desktop mouse user with prefers-reduced-motion enabled should get the
+// same treatment as a touch user: no custom cursor at all, since the
+// reticle's spring-lerped follow and the spark-burst particles are both
+// motion effects this setting is meant to suppress.
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function CustomCursor() {
   const reticleRef = useRef(null);
   const spotlightRef = useRef(null);
   const sparkLayerRef = useRef(null);
 
-  const [enabled] = useState(() => supportsFinePointer());
+  const [enabled] = useState(
+    () => supportsFinePointer() && !prefersReducedMotion(),
+  );
   const [mode, setMode] = useState("default"); // "default" | "target" | "text"
   const [clicking, setClicking] = useState(false);
 

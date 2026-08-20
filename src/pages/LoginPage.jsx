@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -39,6 +39,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const formRef = useRef(null);
 
   const update = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -63,7 +64,15 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      const errs = {};
+      if (!/^\S+@\S+\.\S+$/.test(form.email)) errs.email = true;
+      if (!form.password || form.password.length < 6) errs.password = true;
+      const firstErrorField = Object.keys(errs)[0];
+      const el = formRef.current?.querySelector(`#${firstErrorField}`);
+      if (el) el.focus();
+      return;
+    }
 
     setStatus("submitting");
     // Mock authentication — no backend wired up yet. Replace this
@@ -176,19 +185,35 @@ export default function LoginPage() {
             <AnimatePresence mode="wait">
               <motion.form
                 key={activeTab}
+                ref={formRef}
                 initial={{ opacity: 0, x: activeTab === "student" ? -12 : 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: activeTab === "student" ? 12 : -12 }}
                 transition={{ duration: 0.25 }}
                 onSubmit={handleSubmit}
+                noValidate
                 className="space-y-5"
               >
+                {/* Live-announced error summary for screen reader users */}
+                {Object.keys(errors).length > 0 && (
+                  <p role="alert" className="sr-only">
+                    {Object.keys(errors).length} field
+                    {Object.keys(errors).length === 1 ? "" : "s"} need
+                    attention. Please review the form and correct the
+                    highlighted fields.
+                  </p>
+                )}
+
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-spidey-white/50 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-spidey-white/50 mb-2"
+                  >
                     <Mail size={13} className="text-spidey-cyan" />
                     {activeTab === "student" ? "Student Email" : "Admin Email"}
                   </label>
                   <input
+                    id="email"
                     type="email"
                     value={form.email}
                     onChange={(e) => update("email", e.target.value)}
@@ -199,23 +224,35 @@ export default function LoginPage() {
                         : "coordinator@noesis26.dev"
                     }
                     autoComplete="email"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
                   />
-                  {errors.email && <ErrorText>{errors.email}</ErrorText>}
+                  {errors.email && (
+                    <ErrorText id="email-error">{errors.email}</ErrorText>
+                  )}
                 </div>
 
                 <div>
-                  <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-spidey-white/50 mb-2">
+                  <label
+                    htmlFor="password"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.1em] text-spidey-white/50 mb-2"
+                  >
                     <Lock size={13} className="text-spidey-cyan" />
                     Password
                   </label>
                   <div className="relative">
                     <input
+                      id="password"
                       type={showPassword ? "text" : "password"}
                       value={form.password}
                       onChange={(e) => update("password", e.target.value)}
                       className={`${inputClass(errors.password)} pr-11`}
                       placeholder="••••••••"
                       autoComplete="current-password"
+                      aria-invalid={!!errors.password}
+                      aria-describedby={
+                        errors.password ? "password-error" : undefined
+                      }
                     />
                     <button
                       type="button"
@@ -228,7 +265,11 @@ export default function LoginPage() {
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
-                  {errors.password && <ErrorText>{errors.password}</ErrorText>}
+                  {errors.password && (
+                    <ErrorText id="password-error">
+                      {errors.password}
+                    </ErrorText>
+                  )}
                 </div>
 
                 <div className="flex items-center justify-between text-xs">
@@ -305,9 +346,13 @@ export default function LoginPage() {
   );
 }
 
-function ErrorText({ children }) {
+function ErrorText({ id, children }) {
   return (
-    <p className="flex items-center gap-1.5 text-xs text-red-400 mt-1.5">
+    <p
+      id={id}
+      role="alert"
+      className="flex items-center gap-1.5 text-xs text-spidey-red-light mt-1.5"
+    >
       <AlertCircle size={12} />
       {children}
     </p>
@@ -316,6 +361,6 @@ function ErrorText({ children }) {
 
 function inputClass(error) {
   return `w-full rounded-lg bg-spidey-blue/60 border ${
-    error ? "border-red-400/60" : "border-spidey-white/15"
+    error ? "border-spidey-red-light/60" : "border-spidey-white/15"
   } text-spidey-white text-sm px-4 py-3 outline-none focus:border-spidey-red focus:shadow-[0_0_0_1px_rgba(229,27,35,0.4),0_0_16px_rgba(229,27,35,0.25)] transition-colors placeholder:text-spidey-white/30`;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -12,21 +12,58 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export default function EventModal({ event, onClose, onRegister }) {
+  const panelRef = useRef(null);
+  const previouslyFocusedRef = useRef(null);
+
   const handleKeyDown = useCallback(
     (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      // Focus trap: keep Tab/Shift+Tab cycling within the modal panel
+      // while it's open, instead of escaping into content behind the
+      // backdrop.
+      if (e.key === "Tab") {
+        const panel = panelRef.current;
+        if (!panel) return;
+        const focusables = panel.querySelectorAll(FOCUSABLE_SELECTOR);
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     },
     [onClose],
   );
 
   useEffect(() => {
     if (!event) return;
+
+    // Remember whatever triggered the modal (the event card / button the
+    // user clicked) so focus can return there on close, and move focus
+    // into the panel itself right away.
+    previouslyFocusedRef.current = document.activeElement;
+    const panel = panelRef.current;
+    const focusables = panel?.querySelectorAll(FOCUSABLE_SELECTOR);
+    focusables?.[0]?.focus();
+
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      previouslyFocusedRef.current?.focus?.();
     };
   }, [event, handleKeyDown]);
 
@@ -51,6 +88,7 @@ export default function EventModal({ event, onClose, onRegister }) {
 
           {/* Modal panel */}
           <motion.div
+            ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="event-modal-title"

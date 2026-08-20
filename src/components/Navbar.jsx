@@ -1,14 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { PRIMARY_ROUTES } from "../data/routes";
 
+const DRAWER_FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const btnRef = useRef(null);
+  const hamburgerRef = useRef(null);
+  const drawerRef = useRef(null);
   const [magnet, setMagnet] = useState({ x: 0, y: 0 });
   const location = useLocation();
 
@@ -29,6 +33,49 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
+
+  const handleDrawerKeyDown = useCallback((e) => {
+    if (e.key === "Escape") {
+      setMobileOpen(false);
+      return;
+    }
+    // Focus trap: keep Tab/Shift+Tab cycling within the open drawer.
+    if (e.key === "Tab") {
+      const drawer = drawerRef.current;
+      if (!drawer) return;
+      const focusables = drawer.querySelectorAll(DRAWER_FOCUSABLE_SELECTOR);
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    // Remember the hamburger button so focus can return to it on close,
+    // and move focus into the drawer right away. Captured into a local
+    // so the cleanup below doesn't depend on the ref's value at unmount
+    // time, which may have changed.
+    const restoreTarget = document.activeElement || hamburgerRef.current;
+    const focusables = drawerRef.current?.querySelectorAll(
+      DRAWER_FOCUSABLE_SELECTOR,
+    );
+    focusables?.[0]?.focus();
+
+    document.addEventListener("keydown", handleDrawerKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleDrawerKeyDown);
+      restoreTarget?.focus?.();
+    };
+  }, [mobileOpen, handleDrawerKeyDown]);
 
   const handleMouseMove = (e) => {
     const el = btnRef.current;
@@ -153,9 +200,11 @@ export default function Navbar() {
             </motion.div>
 
             <button
+              ref={hamburgerRef}
               onClick={() => setMobileOpen(true)}
               className="md:hidden p-2 rounded-lg border border-spidey-white/15 text-spidey-white"
               aria-label="Open menu"
+              aria-expanded={mobileOpen}
             >
               <Menu size={20} />
             </button>
@@ -175,6 +224,10 @@ export default function Navbar() {
               className="fixed inset-0 z-[60] bg-spidey-blue/90 md:hidden"
             />
             <motion.div
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
